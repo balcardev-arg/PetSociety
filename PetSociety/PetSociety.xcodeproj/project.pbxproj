@@ -16,6 +16,7 @@
 		9780675029CB64F300EFEE52 /* PetSocietyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9780674F29CB64F300EFEE52 /* PetSocietyUITests.swift */; };
 		9780675229CB64F300EFEE52 /* PetSocietyUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9780675129CB64F300EFEE52 /* PetSocietyUITestsLaunchTests.swift */; };
 		978E930729CB6A3F00B665FE /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978E930629CB6A3F00B665FE /* SignUpView.swift */; };
+		978F46EA29D1DD1A0012B1F3 /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978F46E929D1DD1A0012B1F3 /* PhotoPicker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +49,7 @@
 		9780674F29CB64F300EFEE52 /* PetSocietyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetSocietyUITests.swift; sourceTree = "<group>"; };
 		9780675129CB64F300EFEE52 /* PetSocietyUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetSocietyUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		978E930629CB6A3F00B665FE /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		978F46E929D1DD1A0012B1F3 /* PhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +104,7 @@
 				9780673629CB64F200EFEE52 /* ContentView.swift */,
 				978E930629CB6A3F00B665FE /* SignUpView.swift */,
 				9778167B29CCD6F80001C84D /* StringExtension.swift */,
+				978F46E929D1DD1A0012B1F3 /* PhotoPicker.swift */,
 				9780673829CB64F300EFEE52 /* Assets.xcassets */,
 				9780673A29CB64F300EFEE52 /* Preview Content */,
 			);
@@ -266,6 +269,7 @@
 				9778167C29CCD6F80001C84D /* StringExtension.swift in Sources */,
 				9780673729CB64F200EFEE52 /* ContentView.swift in Sources */,
 				978E930729CB6A3F00B665FE /* SignUpView.swift in Sources */,
+				978F46EA29D1DD1A0012B1F3 /* PhotoPicker.swift in Sources */,
 				9780673529CB64F200EFEE52 /* PetSocietyApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
