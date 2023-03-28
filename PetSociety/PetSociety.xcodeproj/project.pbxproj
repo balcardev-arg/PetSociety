@@ -9,13 +9,13 @@
 /* Begin PBXBuildFile section */
 		9778167C29CCD6F80001C84D /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9778167B29CCD6F80001C84D /* StringExtension.swift */; };
 		9780673529CB64F200EFEE52 /* PetSocietyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9780673429CB64F200EFEE52 /* PetSocietyApp.swift */; };
-		9780673729CB64F200EFEE52 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9780673629CB64F200EFEE52 /* ContentView.swift */; };
 		9780673929CB64F300EFEE52 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9780673829CB64F300EFEE52 /* Assets.xcassets */; };
 		9780673C29CB64F300EFEE52 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9780673B29CB64F300EFEE52 /* Preview Assets.xcassets */; };
 		9780674629CB64F300EFEE52 /* PetSocietyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9780674529CB64F300EFEE52 /* PetSocietyTests.swift */; };
 		9780675029CB64F300EFEE52 /* PetSocietyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9780674F29CB64F300EFEE52 /* PetSocietyUITests.swift */; };
 		9780675229CB64F300EFEE52 /* PetSocietyUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9780675129CB64F300EFEE52 /* PetSocietyUITestsLaunchTests.swift */; };
 		978E930729CB6A3F00B665FE /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978E930629CB6A3F00B665FE /* SignUpView.swift */; };
+		CD3ED99B29D31917000EF495 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3ED99A29D31917000EF495 /* SignInView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,7 +39,6 @@
 		9778167B29CCD6F80001C84D /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		9780673129CB64F200EFEE52 /* PetSociety.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PetSociety.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9780673429CB64F200EFEE52 /* PetSocietyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetSocietyApp.swift; sourceTree = "<group>"; };
-		9780673629CB64F200EFEE52 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		9780673829CB64F300EFEE52 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9780673B29CB64F300EFEE52 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		9780674129CB64F300EFEE52 /* PetSocietyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PetSocietyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -48,6 +47,7 @@
 		9780674F29CB64F300EFEE52 /* PetSocietyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetSocietyUITests.swift; sourceTree = "<group>"; };
 		9780675129CB64F300EFEE52 /* PetSocietyUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetSocietyUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		978E930629CB6A3F00B665FE /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		CD3ED99A29D31917000EF495 /* SignInView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,8 +99,8 @@
 			isa = PBXGroup;
 			children = (
 				9780673429CB64F200EFEE52 /* PetSocietyApp.swift */,
-				9780673629CB64F200EFEE52 /* ContentView.swift */,
 				978E930629CB6A3F00B665FE /* SignUpView.swift */,
+				CD3ED99A29D31917000EF495 /* SignInView.swift */,
 				9778167B29CCD6F80001C84D /* StringExtension.swift */,
 				9780673829CB64F300EFEE52 /* Assets.xcassets */,
 				9780673A29CB64F300EFEE52 /* Preview Content */,
@@ -264,9 +264,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				9778167C29CCD6F80001C84D /* StringExtension.swift in Sources */,
-				9780673729CB64F200EFEE52 /* ContentView.swift in Sources */,
 				978E930729CB6A3F00B665FE /* SignUpView.swift in Sources */,
 				9780673529CB64F200EFEE52 /* PetSocietyApp.swift in Sources */,
+				CD3ED99B29D31917000EF495 /* SignInView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
