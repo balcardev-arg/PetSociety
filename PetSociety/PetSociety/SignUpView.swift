@@ -114,7 +114,7 @@ struct SignUpView: View {
                         }
                         let samePassword = password == passwordConfirmation
                         
-                        let validFields = self.email.isValidEmail(email) && self.password.isValidPassword() && self.passwordConfirmation.isValidPassword() && samePassword && !self.name.isEmpty && photoPicker.photoSelection != nil
+                        let validFields = self.email.isValidEmail() && self.password.isValidPassword() && self.passwordConfirmation.isValidPassword() && samePassword && !self.name.isEmpty && photoPicker.photoSelection != nil
                         
                         Button(action: postUser) {
                             Text ("Sign Up")
@@ -141,6 +141,7 @@ struct SignUpView: View {
             "email": email,
             "password": password,
         ]
+        
         request.httpBody = try? JSONEncoder().encode(userDictionary)
     
         URLSession.shared.dataTask(with: request) { (data, response, error) in
