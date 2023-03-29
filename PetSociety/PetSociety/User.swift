@@ -13,5 +13,5 @@ struct User: Codable, Identifiable {
     let email: String
     let imageUrl: String
     let isFriend: Bool
-    let isPrivate: Bool
+    let isPrivate: Bool 
 }

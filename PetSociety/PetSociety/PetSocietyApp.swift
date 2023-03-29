@@ -11,7 +11,10 @@ import SwiftUI
 struct PetSocietyApp: App {
     var body: some Scene {
         WindowGroup {
-            SignUpView()
+            ZStack {
+                ColorExtensionView()
+                SignUpView()
+            }
         }
     }
 }
