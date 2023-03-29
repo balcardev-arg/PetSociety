@@ -19,6 +19,8 @@ final class PhotoPicker: ObservableObject {
             }
         }
     }
+    var imageData = Data()
+    
     private func loadTransferable(from photoSelection: PhotosPickerItem){
         photoSelection.loadTransferable(type: Data.self) { result in
             DispatchQueue.main.async {

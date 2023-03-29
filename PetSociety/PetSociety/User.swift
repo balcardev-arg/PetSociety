@@ -8,10 +8,12 @@
 import Foundation
 
 struct User: Codable, Identifiable {
-    let id: String
+    var id: String {
+        get {
+            return email
+        }
+    }
     let name: String
     let email: String
     let imageUrl: String
-    let isFriend: Bool
-    let isPrivate: Bool 
 }

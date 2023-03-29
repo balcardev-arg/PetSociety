@@ -20,6 +20,7 @@ struct SignUpView: View {
     @State private var displayName: String = ""
     @State private var isPasswordVisible: Bool = false
     @State private var isPasswordConfirmationVisible: Bool = false
+    @State private var isLoading: Bool = false
     
     var body: some View {
         VStack (alignment: .center){
@@ -120,6 +121,9 @@ struct SignUpView: View {
                     .padding()
             }
         }
+        if isLoading {
+            ModalProgressView()
+        }
     }
     
     private func postUser(){
@@ -130,6 +134,7 @@ struct SignUpView: View {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
         
+        isLoading = true
         let userDictionary = [
             "name": name,
             "email": email,
@@ -139,6 +144,7 @@ struct SignUpView: View {
         request.httpBody = try? JSONEncoder().encode(userDictionary)
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
+            isLoading = false
             guard let httpResponse = response as? HTTPURLResponse else {
                 // some error
                 return
@@ -146,18 +152,40 @@ struct SignUpView: View {
             if httpResponse.statusCode == 200 {
                 guard let data = data,
                       //TODO
-                      let _ = try? JSONDecoder().decode(User.self, from: data)
+                      let user = try? JSONDecoder().decode(User.self, from: data)
                 else {
                     // some error
                     return
                 }
+                uploadImage(for: user)
             }
-            
         }.resume()
     }
     
-    private func uploadImage(){
+    private func uploadImage(for user: User){
+        // Creo una referencia a storage
+        let storageReference = Storage.storage().reference()
         
+        // guardo en data la imagen que se selecciona en el photopicker
+        let data = photoPicker.imageData
+        
+        // a mi referencia de la imagen le digo en donde guardarse
+        let imageReference = storageReference.child("\(user.id)/profilePicture.jpg")
+        
+        // le aplico putData para que me traiga metadata y error
+        imageReference.putData(data) { metadata, error in
+            
+            // si la image trae metadata se le aplica downloadURL para que traiga URL o error
+            guard let _ = metadata else { return }
+            
+            // si trae url se guarda como parametro en la funcion uploadProfileImage
+            imageReference.downloadURL { (url, error) in
+                guard let imageURL = url else { return }
+                
+                uploadProfileImage(with: imageURL.absoluteString, user: user)
+            }
+        }
+        // En los errores, si no se pudo crear la imagen o si no se obtuvo la url, el usuario igualmente se puede loguear
     }
     
     private func uploadProfileImage(with imageUrl: String, user: User){
@@ -172,9 +200,12 @@ struct SignUpView: View {
         request.httpMethod = "PUT"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
+        isLoading = true
         request.httpBody = try? JSONEncoder().encode(userDictionary)
         
+        
         URLSession.shared.dataTask(with: request) { data, response, error in
+            isLoading = false
             guard let httpResponse = response as? HTTPURLResponse else {
                 // some error
                 return
