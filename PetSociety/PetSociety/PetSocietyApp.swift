@@ -6,12 +6,31 @@
 //
 
 import SwiftUI
+import Firebase
+
+class appDelegate: NSObject,UIApplicationDelegate {
+    func application(_ application: UIApplication,
+    didFinishLaunchingWithOptions launchOptions:
+                     [UIApplication.LaunchOptionsKey: Any]?) ->Bool {
+        FirebaseApp.configure()
+        
+        return true
+    }
+}
 
 @main
 struct PetSocietyApp: App {
+    @UIApplicationDelegateAdaptor(appDelegate.self) var delegate
+    @StateObject var authenticationViewModel = AuthenticationViewModel()
+    
     var body: some Scene {
         WindowGroup {
-            SignUpView()
+            if let users = authenticationViewModel.user {
+                Text("Usuario lageado \(users.email)")
+            } else {
+                SignInView(authenticationViewModel: authenticationViewModel)
+            }
+            
         }
     }
 }

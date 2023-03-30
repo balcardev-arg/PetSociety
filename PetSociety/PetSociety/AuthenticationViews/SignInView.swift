@@ -2,13 +2,15 @@
 //  SignInView.swift
 //  PetSociety
 //
-//  Created by Layla Cisneros on 22/03/2023.
+//  Created by Gian Lopez on 22/03/2023.
 //
 
 
 import SwiftUI
 
 struct SignInView: View {
+    
+    @ObservedObject var authenticationViewModel: AuthenticationViewModel
     
     @State private var email: String = ""
     @State private var password: String = ""
@@ -41,6 +43,7 @@ struct SignInView: View {
                     
                     Text("Email")
                         .frame(maxWidth: .infinity, alignment: .leading)
+                        .bold()
                     
                     TextField("Email", text: $email)
                         .padding()
@@ -51,6 +54,7 @@ struct SignInView: View {
                     
                     Text("Password")
                         .frame(maxWidth: .infinity, alignment: .leading)
+                        .bold()
                     
                     HStack () {
                         if self.passwordIsVisible {
@@ -69,29 +73,40 @@ struct SignInView: View {
                         .background(Color.black.opacity(0.05))
                         .frame(width: 380)
                     
-                    let validFields = self.email.isValidEmailAddress() && self.password.isPassword()
+                    let validFields = self.email.isValidEmail() && self.password.isValidPassword()
                     
-                    Button("Sign in"){
-                        loginUser()
+                    Button("Sign in") {
+                        authenticationViewModel.login(email: email, password: password)
                     }.foregroundColor(.white)
                         .frame(width: 300,height: 50)
                         .background(validFields ? .green : .pink)
                         .cornerRadius(25)
                         .disabled(!validFields)
+                    if let messageError = authenticationViewModel.messageError {
+                        Text(messageError)
+                            .bold()
+                            .font(.body)
+                            .foregroundColor(.red)
+                            .padding(.top, 20)
+                    }
                     
                     HStack {
                         Button("Forgot Password?"){
                             showForgotPasswordView = true
-                        }
+                        }.frame(maxWidth: .infinity, alignment: .leading)
+                            .padding()
                         .sheet(isPresented: $showForgotPasswordView){
                             ZStack{
                                 Color.white.ignoresSafeArea()
                             }
-                        }.frame(maxWidth: .infinity, alignment: .leading)
-                        Text("Sign Up")
-                            .bold()
-                            .padding()
-                            .foregroundColor(Color .pink)
+                        }
+                        
+                        NavigationLink(destination: SignUpView(authenticationViewModel: AuthenticationViewModel())){
+                            Text("Sign up")
+                                .bold()
+                                .foregroundColor(.pink)
+                                .padding()
+                        }
                     }
                     
                    
@@ -106,7 +121,6 @@ struct SignInView: View {
             }
             }
         }
-        .background(Color(red: 229.0/255.0, green: 243.0/255.0, blue: 254.0/255.0))
     }
     
     private func loginUser() {
@@ -150,7 +164,9 @@ struct SignInView: View {
     
     struct ContentView_Previews: PreviewProvider {
         static var previews: some View {
-             SignInView()        }
+            SignInView(authenticationViewModel: AuthenticationViewModel())
+            
+        }
     }
     
 }

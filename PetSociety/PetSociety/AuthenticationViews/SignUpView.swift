@@ -8,13 +8,15 @@
 import SwiftUI
 import PhotosUI
 
-struct User: Decodable {
+struct User: Codable {
     let name: String
     let email: String
     let password: String
 }
 
 struct SignUpView: View {
+    @ObservedObject var authenticationViewModel: AuthenticationViewModel
+    
     @State private var email: String = ""
     @State private var password: String = ""
     @State private var passwordConfirmation = ""
@@ -109,15 +111,22 @@ struct SignUpView: View {
                             Spacer()
                         }
                         let samePassword = password == passwordConfirmation
-                        let validFields = email.isValidEmail(email) && password.isValidPassword() && passwordConfirmation.isValidPassword() && samePassword && !name.isEmpty
+                        let validFields = email.isValidEmail() && password.isValidPassword() && passwordConfirmation.isValidPassword() && samePassword && !name.isEmpty
                         
-                        Button(action: postUser) {
-                            Text ("Sign Up")
-                        }.frame(width: 300, height: 40)
+                        Button("Sign Up") {
+                                authenticationViewModel.createNewUser(email: email, password: password)
+                            }.frame(width: 300, height: 40)
                             .background(validFields ? Color.pink : Color.gray)
                             .foregroundColor(Color.white)
                             .cornerRadius(10)
                             .padding()
+                        if let messageError = authenticationViewModel.messageError {
+                            Text(messageError)
+                                .bold()
+                                .font(.body)
+                                .foregroundColor(.red)
+                                .padding(.top, 20)
+                        }
                     }
                 }
             }
@@ -159,6 +168,6 @@ struct SignUpView: View {
 
 struct SignUpView_Previews: PreviewProvider {
     static var previews: some View {
-        SignUpView()
+        SignUpView(authenticationViewModel: AuthenticationViewModel())
     }
 }
