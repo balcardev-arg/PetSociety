@@ -25,6 +25,7 @@
 		CD3ED9B429D465FA000EF495 /* AuthenticationFirebaseDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3ED9B329D465FA000EF495 /* AuthenticationFirebaseDatasource.swift */; };
 		CD3ED9B729D47F8B000EF495 /* AuthenticationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3ED9B629D47F8B000EF495 /* AuthenticationRepository.swift */; };
 		CD3ED9B929D48295000EF495 /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3ED9B829D48295000EF495 /* AuthenticationViewModel.swift */; };
+		CD3ED9C729D75478000EF495 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3ED9C629D75478000EF495 /* TabBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +62,7 @@
 		CD3ED9B329D465FA000EF495 /* AuthenticationFirebaseDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationFirebaseDatasource.swift; sourceTree = "<group>"; };
 		CD3ED9B629D47F8B000EF495 /* AuthenticationRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationRepository.swift; sourceTree = "<group>"; };
 		CD3ED9B829D48295000EF495 /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
+		CD3ED9C629D75478000EF495 /* TabBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +121,7 @@
 			isa = PBXGroup;
 			children = (
 				9780673429CB64F200EFEE52 /* PetSocietyApp.swift */,
+				CD3ED9C629D75478000EF495 /* TabBar.swift */,
 				CD3ED9B529D47968000EF495 /* AuthenticationViews */,
 				9780673829CB64F300EFEE52 /* Assets.xcassets */,
 				9780673A29CB64F300EFEE52 /* Preview Content */,
@@ -315,6 +318,7 @@
 				9778167C29CCD6F80001C84D /* StringExtension.swift in Sources */,
 				978E930729CB6A3F00B665FE /* SignUpView.swift in Sources */,
 				CD3ED9B929D48295000EF495 /* AuthenticationViewModel.swift in Sources */,
+				CD3ED9C729D75478000EF495 /* TabBar.swift in Sources */,
 				9780673529CB64F200EFEE52 /* PetSocietyApp.swift in Sources */,
 				CD3ED9B729D47F8B000EF495 /* AuthenticationRepository.swift in Sources */,
 				CD3ED99B29D31917000EF495 /* SignInView.swift in Sources */,
