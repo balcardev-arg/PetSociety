@@ -7,10 +7,11 @@
 
 import SwiftUI
 import PhotosUI
-import FirebaseStorage
 
 
 struct SignUpView: View {
+    
+    @Binding var navigationStackViews: [LoginNavigationViews]
     
     @AppStorage("isLogged") var isLogged: Bool = false
     
@@ -23,7 +24,6 @@ struct SignUpView: View {
     @State private var isPasswordVisible: Bool = false
     @State private var isPasswordConfirmationVisible: Bool = false
     @State private var isLoading: Bool = false
-    
     
     var body: some View {
         ZStack() {
@@ -133,114 +133,51 @@ struct SignUpView: View {
     }
     
     private func postUser(){
-        let url = URL(string: "https://us-central1-balcardev-wishlist.cloudfunctions.net/app/api/users")
-        var request = URLRequest(url: url!)
-        
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
-        
+        navigationStackViews.append(.emailVerification)
         isLoading = true
-        let userDictionary = [
-            "name": name,
-            "email": email,
-            "password": password,
-        ]
-        
-        request.httpBody = try? JSONEncoder().encode(userDictionary)
-        
-        URLSession.shared.dataTask(with: request) { (data, response, error) in
-            
-            guard let httpResponse = response as? HTTPURLResponse else {
-                // some error
+        WebService().signUp(username: name, email: email, password: password) { result in
+            switch result {
+            case .success():
+                uploadImage(for: email)
+            case .failure(_):
                 isLoading = false
-                return
-            }
-            if httpResponse.statusCode == 200 {
-                guard let data = data,
-                      //TODO
-                      let user = try? JSONDecoder().decode(User.self, from: data)
-                else {
-                    // some error
-                    isLoading = false
-                    return
-                }
-                uploadImage(for: user)
-            }
-        }.resume()
-    }
-    
-    private func uploadImage(for user: User){
-        // Creo una referencia a storage
-        let storageReference = Storage.storage().reference()
-        
-        // guardo en data la imagen que se selecciona en el photopicker
-        let data = photoPicker.imageData
-        
-        // a mi referencia de la imagen le digo en donde guardarse
-        let imageReference = storageReference.child("\(user.id)/profilePicture.jpg")
-        
-        // le aplico putData para que me traiga metadata y error
-        imageReference.putData(data) { metadata, error in
-            
-            // si la image trae metadata se le aplica downloadURL para que traiga URL o error
-            guard let _ = metadata else {
-                isLogged = true
-                
-                return
-            }
-            
-            // si trae url se guarda como parametro en la funcion uploadProfileImage
-            imageReference.downloadURL { (url, error) in
-                guard let imageURL = url else {
-                    isLogged = true
-                    return
-                }
-                
-                uploadProfileImage(with: imageURL.absoluteString, user: user)
+                //mostrar un error
             }
         }
-        // En los errores, si no se pudo crear la imagen o si no se obtuvo la url, el usuario igualmente se puede loguear
     }
     
-    private func uploadProfileImage(with imageUrl: String, user: User){
-        let url = URL(string: "https://us-central1-balcardev-wishlist.cloudfunctions.net/app/api/users/profile")
-        let userDictionary = [
-            "userId": user.id,
-            "imageURL": imageUrl,
-        ]
-        
-        var request = URLRequest(url: url!)
-        
-        request.httpMethod = "PUT"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
-        isLoading = true
-        request.httpBody = try? JSONEncoder().encode(userDictionary)
-        
-        
-        URLSession.shared.dataTask(with: request) { data, response, error in
+    private func uploadImage(for email: String){
+        let data = photoPicker.imageData
+        WebService().uploadImage(imageData: data) { result in
+            switch result {
+            case .success(let imageUrl):
+                updateProfileImage(with: imageUrl)
+            case .failure(_):
+                isLoading = false
+                //mostrar un error
+            }
+        }
+    }
+    
+    private func updateProfileImage(with imageUrl: String){
+        WebService().updateProfile(imageUrl: imageUrl) { result in
             isLoading = false
-            isLogged = true
-            guard let httpResponse = response as? HTTPURLResponse else {
-                // some error
-                return
-            }
-            if httpResponse.statusCode == 200 {
-                guard let data = data,
-                      let _ = try? JSONDecoder().decode(User.self, from: data) else {
-                    // some error
-                    return
-                }
-            }
-            
-            
-        }.resume()
+            switch result {
+            case .success():
+                print("")
+                navigationStackViews.append(.emailVerification)
+                //aca ya esta hecho el login y se subio la imagen asi que deberias mandarlo a la siguiente pantalla donde dice que tiene que confirmar el email
+            case .failure(let error):
+                print (error)
+                //mostrar un error
+            }   
+        }
     }
 }
 
 struct SignUpView_Previews: PreviewProvider {
+    @State static var fakeStack: [LoginNavigationViews] = [.signUp, .emailVerification]
     static var previews: some View {
-        SignUpView()
+        SignUpView(navigationStackViews: $fakeStack)
     }
 }
