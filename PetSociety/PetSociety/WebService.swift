@@ -88,4 +88,23 @@ class WebService {
         }
         // En los errores, si no se pudo crear la imagen o si no se obtuvo la url, el usuario igualmente se puede loguear
     }
+    
+    func getPosts(completion: @escaping (Result<[Post], Error>) -> Void) {
+        guard let url = URL(string: "getPosts") else { return }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            guard let data = data,
+                  let userPosts = try? JSONDecoder().decode([Post].self, from: data) else { return }
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(userPosts))
+            }
+        }.resume()
+    }
 }

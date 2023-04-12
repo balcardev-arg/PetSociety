@@ -133,7 +133,6 @@ struct SignUpView: View {
     }
     
     private func postUser(){
-        navigationStackViews.append(.emailVerification)
         isLoading = true
         WebService().signUp(username: name, email: email, password: password) { result in
             switch result {
@@ -164,9 +163,7 @@ struct SignUpView: View {
             isLoading = false
             switch result {
             case .success():
-                print("")
                 navigationStackViews.append(.emailVerification)
-                //aca ya esta hecho el login y se subio la imagen asi que deberias mandarlo a la siguiente pantalla donde dice que tiene que confirmar el email
             case .failure(let error):
                 print (error)
                 //mostrar un error
