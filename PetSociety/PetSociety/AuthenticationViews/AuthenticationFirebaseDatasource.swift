@@ -8,18 +8,9 @@
 import Foundation
 import FirebaseAuth
 
-struct Users {
-    let email: String
-}
-
 final class AutheticationFirebaseDatasource {
-    func getCurrentUser() -> Users? {
-        guard let email = Auth.auth().currentUser?.email else {
-            return nil
-        }
-        return.init(email: email)
-    }
-    func createNewUser(email: String, password: String, completionBlock: @escaping (Result<Users,Error>)-> Void) {
+     
+    func createNewUser(email: String, password: String, completionBlock: @escaping (Result<User,Error>)-> Void) {
         Auth.auth().createUser(withEmail: email, password: password) { AuthDataResult, error in
             if let error = error {
                 print("Error creating a new user\(error.localizedDescription)")
@@ -28,11 +19,11 @@ final class AutheticationFirebaseDatasource {
             }
             let email = AuthDataResult?.user.email ?? "No email"
             print("New user created with info\(email)")
-            completionBlock(.success(.init(email: email)))
+            completionBlock(.success(User(id: "1", name: "", email: "", password: "", imageUrl: "")))
         
         }
     }
-    func login(email: String, password: String, completionBlock: @escaping (Result<Users,Error>)-> Void) {
+    func login(email: String, password: String, completionBlock: @escaping (Result<User,Error>)-> Void) {
         Auth.auth().signIn(withEmail: email, password: password) { AuthDataResult, error in
             if let error = error {
                 print("Error Login\(error.localizedDescription)")
@@ -41,7 +32,7 @@ final class AutheticationFirebaseDatasource {
             }
             let email = AuthDataResult?.user.email ?? "No email"
             print("User login\(email)")
-            completionBlock(.success(.init(email: email)))
+            completionBlock(.success(User(id: "1",name: "", email: "", password: "", imageUrl: "")))
         
         }
     }

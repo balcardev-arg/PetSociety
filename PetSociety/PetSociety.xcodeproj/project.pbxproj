@@ -26,6 +26,10 @@
 		CD3ED9B729D47F8B000EF495 /* AuthenticationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3ED9B629D47F8B000EF495 /* AuthenticationRepository.swift */; };
 		CD3ED9B929D48295000EF495 /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3ED9B829D48295000EF495 /* AuthenticationViewModel.swift */; };
 		CD3ED9C729D75478000EF495 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3ED9C629D75478000EF495 /* TabBar.swift */; };
+		CD4D724C29E5CD4F008620BD /* FriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4D724B29E5CD4F008620BD /* FriendsView.swift */; };
+		CD4D724E29ED77F7008620BD /* FriendsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4D724D29ED77F7008620BD /* FriendsModel.swift */; };
+		CD4D725029ED807D008620BD /* FriendBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4D724F29ED807D008620BD /* FriendBoard.swift */; };
+		CD4D725229EEC5E9008620BD /* item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4D725129EEC5E9008620BD /* item.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +67,10 @@
 		CD3ED9B629D47F8B000EF495 /* AuthenticationRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationRepository.swift; sourceTree = "<group>"; };
 		CD3ED9B829D48295000EF495 /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
 		CD3ED9C629D75478000EF495 /* TabBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
+		CD4D724B29E5CD4F008620BD /* FriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsView.swift; sourceTree = "<group>"; };
+		CD4D724D29ED77F7008620BD /* FriendsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsModel.swift; sourceTree = "<group>"; };
+		CD4D724F29ED807D008620BD /* FriendBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendBoard.swift; sourceTree = "<group>"; };
+		CD4D725129EEC5E9008620BD /* item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = item.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +128,7 @@
 		9780673329CB64F200EFEE52 /* PetSociety */ = {
 			isa = PBXGroup;
 			children = (
+				CD4D724A29E5CD21008620BD /* Friends */,
 				9780673429CB64F200EFEE52 /* PetSocietyApp.swift */,
 				CD3ED9C629D75478000EF495 /* TabBar.swift */,
 				CD3ED9B529D47968000EF495 /* AuthenticationViews */,
@@ -165,13 +174,24 @@
 			isa = PBXGroup;
 			children = (
 				978E930629CB6A3F00B665FE /* SignUpView.swift */,
-				CD3ED9B829D48295000EF495 /* AuthenticationViewModel.swift */,
+				CD4D725129EEC5E9008620BD /* item.swift */,
 				CD3ED99A29D31917000EF495 /* SignInView.swift */,
 				9778167B29CCD6F80001C84D /* StringExtension.swift */,
 				CD3ED9B329D465FA000EF495 /* AuthenticationFirebaseDatasource.swift */,
 				CD3ED9B629D47F8B000EF495 /* AuthenticationRepository.swift */,
+				CD3ED9B829D48295000EF495 /* AuthenticationViewModel.swift */,
 			);
 			path = AuthenticationViews;
+			sourceTree = "<group>";
+		};
+		CD4D724A29E5CD21008620BD /* Friends */ = {
+			isa = PBXGroup;
+			children = (
+				CD4D724B29E5CD4F008620BD /* FriendsView.swift */,
+				CD4D724F29ED807D008620BD /* FriendBoard.swift */,
+				CD4D724D29ED77F7008620BD /* FriendsModel.swift */,
+			);
+			path = Friends;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -318,11 +338,15 @@
 				9778167C29CCD6F80001C84D /* StringExtension.swift in Sources */,
 				978E930729CB6A3F00B665FE /* SignUpView.swift in Sources */,
 				CD3ED9B929D48295000EF495 /* AuthenticationViewModel.swift in Sources */,
+				CD4D724C29E5CD4F008620BD /* FriendsView.swift in Sources */,
+				CD4D725229EEC5E9008620BD /* item.swift in Sources */,
 				CD3ED9C729D75478000EF495 /* TabBar.swift in Sources */,
 				9780673529CB64F200EFEE52 /* PetSocietyApp.swift in Sources */,
 				CD3ED9B729D47F8B000EF495 /* AuthenticationRepository.swift in Sources */,
 				CD3ED99B29D31917000EF495 /* SignInView.swift in Sources */,
 				CD3ED9B429D465FA000EF495 /* AuthenticationFirebaseDatasource.swift in Sources */,
+				CD4D724E29ED77F7008620BD /* FriendsModel.swift in Sources */,
+				CD4D725029ED807D008620BD /* FriendBoard.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

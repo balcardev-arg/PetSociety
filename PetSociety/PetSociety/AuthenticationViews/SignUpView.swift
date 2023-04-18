@@ -8,10 +8,12 @@
 import SwiftUI
 import PhotosUI
 
-struct User: Codable {
+struct User: Codable, Identifiable {
+    let id: String
     let name: String
     let email: String
     let password: String
+    let imageUrl: String
 }
 
 struct SignUpView: View {

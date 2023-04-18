@@ -22,11 +22,11 @@ class appDelegate: NSObject,UIApplicationDelegate {
 struct PetSocietyApp: App {
     @UIApplicationDelegateAdaptor(appDelegate.self) var delegate
     @StateObject var authenticationViewModel = AuthenticationViewModel()
-    
+    @AppStorage("UserToken") var TokenUser: String?
     var body: some Scene {
         WindowGroup {
-            if let users = authenticationViewModel.user {
-                Text("Usuario lageado \(users.email)")
+            if Auth.auth().currentUser != nil {
+                TabBar()
             } else {
                 SignInView(authenticationViewModel: authenticationViewModel)
             }
