@@ -8,12 +8,6 @@
 import SwiftUI
 import PhotosUI
 
-struct User: Decodable {
-    let name: String
-    let email: String
-    let password: String
-}
-
 struct SignUpView: View {
     @StateObject var photoPicker: PhotoPicker = PhotoPicker()
     @State private var email: String = ""
@@ -162,8 +156,33 @@ struct SignUpView: View {
         }.resume()
     }
     
-    private func uploadProfileImage(){
+    private func uploadProfileImage(with imageUrl: String, user: User){
+        let url = URL(string: "https://us-central1-balcardev-wishlist.cloudfunctions.net/app/api/users/profile")
+        let userDictionary = [
+            "userId": user.id,
+            "imageURL": imageUrl,
+        ]
         
+        var request = URLRequest(url: url!)
+        
+        request.httpMethod = "PUT"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
+        request.httpBody = try? JSONEncoder().encode(userDictionary)
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let httpResponse = response as? HTTPURLResponse else {
+                // some error
+                return
+            }
+            if httpResponse.statusCode == 200 {
+                guard let data = data,
+                      let _ = try? JSONDecoder().decode(User.self, from: data) else {
+                    // some error
+                    return
+                }
+            }
+        }.resume()
     }
 }
 
