@@ -2,19 +2,18 @@
 //  ModalProgressView.swift
 //  PetSociety
 //
-//  Created by Gian Franco Lopez on 31/03/2023.
+//  Created by Layla Cisneros on 29/03/2023.
 //
+
 import SwiftUI
-import Foundation
 
 struct ModalProgressView: View {
     var body: some View {
         HStack {
             ProgressView().scaleEffect(3)
                 .tint(.white)
-        }.frame(maxWidth: .infinity, maxHeight: .infinity)
+        } .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color(red: 0, green: 0, blue: 0, opacity: 0.5))
-        
     }
 }
 

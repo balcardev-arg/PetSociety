@@ -15,10 +15,13 @@ struct User: Codable, Identifiable {
     let password: String
     let imageUrl: String
 }
-
 struct SignUpView: View {
-    @ObservedObject var authenticationViewModel: AuthenticationViewModel
+     @ObservedObject var authenticationViewModel: AuthenticationViewModel
+    @Binding var navigationStackViews: [LoginNavigationViews]
     
+    @AppStorage("isLogged") var isLogged: Bool = false
+    
+    @StateObject var photoPicker: PhotoPicker = PhotoPicker()
     @State private var email: String = ""
     @State private var password: String = ""
     @State private var passwordConfirmation = ""
@@ -26,91 +29,69 @@ struct SignUpView: View {
     @State private var displayName: String = ""
     @State private var isPasswordVisible: Bool = false
     @State private var isPasswordConfirmationVisible: Bool = false
+    @State private var isLoading: Bool = false
     
     var body: some View {
-            ZStack{
-                Color(red: 228/255, green: 245/255, blue: 254/255).ignoresSafeArea()
-                VStack (alignment: .center){
-                    Image(systemName: "person.circle")
-                        .resizable()
-                        .frame(width: 120, height: 120)
-                        .foregroundColor(Color.pink)
-                        .padding(10)
-                    Button("Select image") {}
-                    Spacer()
-                    VStack(alignment: .leading) {
-                        Text("Email")
-                            .fontWeight(.bold)
-                        TextField("name@example.com", text: $email)
-                            .padding()
-                            .frame(width: 350, height: 50)
-                            .background(Color.white)
-                            .textInputAutocapitalization(.never)
-                            .keyboardType(.emailAddress)
-                        Text("Password")
-                            .fontWeight(.bold)
-                        
-                        HStack (spacing: -40){
-                            if (isPasswordVisible) {
-                                TextField("Password", text: $password)
-                                    .padding()
-                                    .frame(width: 350, height: 50)
-                                    .background(Color.white)
-                                    .textInputAutocapitalization(.never)
-                            } else {
-                                SecureField("Password", text: $password)
-                                    .padding()
-                                    .frame(width: 350, height: 50)
-                                    .background(Color.white)
-                            }
-                            Button (action: {
-                                self.isPasswordVisible.toggle()
-                            })
-                            { Image(systemName: isPasswordVisible ? "eye.fill" : "eye.slash.fill")
-                                    .foregroundColor(.gray)
-                            }
-                        }
-                        Text("Password confirmation")
-                            .fontWeight(.bold)
-                        
-                        HStack (spacing: -40) {
-                            if (isPasswordConfirmationVisible) {
-                                TextField("Password", text: $passwordConfirmation)
-                                    .padding()
-                                    .frame(width: 350, height: 50)
-                                    .background(Color.white)
-                                    .textInputAutocapitalization(.never)
-                            } else {
-                                SecureField("Password", text: $passwordConfirmation)
-                                    .padding()
-                                    .frame(width: 350, height: 50)
-                                    .background(Color.white)
-                            }
-                            Button (action: {
-                                self.isPasswordConfirmationVisible.toggle()
-                            })
-                            { Image(systemName: isPasswordConfirmationVisible ? "eye.fill" : "eye.slash.fill")
-                                    .foregroundColor(.gray)
-                            }
-                        }
-                        VStack (alignment: .leading) {
-                            Text("Name")
-                                .fontWeight(.bold)
-                                .frame(alignment: .trailing)
-                            TextField("Sample name", text: $name)
+        ZStack() {
+            ColorExtensionView()
+            VStack (alignment: .center){
+                photoPicker.image
+                    .resizable()
+                    .frame(width: 120, height: 120)
+                    .clipShape(Circle())
+                    .foregroundColor(Color.pink)
+                    .padding(10)
+                
+                PhotosPicker(selection: $photoPicker.photoSelection, matching: .images, photoLibrary: .shared()) {
+                    Text("Select image")}
+                Spacer()
+                VStack(alignment: .leading) {
+                    Text("Email")
+                        .fontWeight(.bold)
+                    TextField("name@example.com", text: $email)
+                        .padding()
+                        .frame(width: 350, height: 50)
+                        .background(Color.white)
+                        .textInputAutocapitalization(.never)
+                        .keyboardType(.emailAddress)
+                    Text("Password")
+                        .fontWeight(.bold)
+                    
+                    HStack (spacing: -40){
+                        if (isPasswordVisible) {
+                            TextField("Password", text: $password)
                                 .padding()
                                 .frame(width: 350, height: 50)
                                 .background(Color.white)
-                            Text("Display name")
-                                .fontWeight(.bold)
-                            TextField("Sample display name", text: $displayName)
+                                .textInputAutocapitalization(.never)
+                        } else {
+                            SecureField("Password", text: $password)
                                 .padding()
                                 .frame(width: 350, height: 50)
                                 .background(Color.white)
-                            Text("This will be defaulted to the name if none is provide")
-                                .font(.footnote)
-                                .foregroundColor(.red)
-                            Spacer()
+                        }
+                        Button (action: {
+                            self.isPasswordVisible.toggle()
+                        })
+                        { Image(systemName: isPasswordVisible ? "eye.fill" : "eye.slash.fill")
+                                .foregroundColor(.gray)
+                        }
+                    }
+                    Text("Password confirmation")
+                        .fontWeight(.bold)
+                    
+                    HStack (spacing: -40) {
+                        if (isPasswordConfirmationVisible) {
+                            TextField("Password", text: $passwordConfirmation)
+                                .padding()
+                                .frame(width: 350, height: 50)
+                                .background(Color.white)
+                                .textInputAutocapitalization(.never)
+                        } else {
+                            SecureField("Password", text: $passwordConfirmation)
+                                .padding()
+                                .frame(width: 350, height: 50)
+                                .background(Color.white)
                         }
                         let samePassword = password == passwordConfirmation
                         let validFields = email.isValidEmail() && password.isValidPassword() && passwordConfirmation.isValidPassword() && samePassword && !name.isEmpty
@@ -129,47 +110,94 @@ struct SignUpView: View {
                                 .foregroundColor(.red)
                                 .padding(.top, 20)
                         }
+                        Button (action: {
+                            self.isPasswordConfirmationVisible.toggle()
+                        })
+                        { Image(systemName: isPasswordConfirmationVisible ? "eye.fill" : "eye.slash.fill")
+                                .foregroundColor(.gray)
+                        }
                     }
+                    VStack (alignment: .leading) {
+                        Text("Name")
+                            .fontWeight(.bold)
+                            .frame(alignment: .trailing)
+                        TextField("Sample name", text: $name)
+                            .padding()
+                            .frame(width: 350, height: 50)
+                            .background(Color.white)
+                        Text("Display name")
+                            .fontWeight(.bold)
+                        TextField("Sample display name", text: $displayName)
+                            .padding()
+                            .frame(width: 350, height: 50)
+                            .background(Color.white)
+                        Text("This will be defaulted to the name if none is provide")
+                            .font(.footnote)
+                            .foregroundColor(.red)
+                        Spacer()
+                    }
+                    let samePassword = password == passwordConfirmation
+                    
+                    let validFields = self.email.isValidEmail() && self.password.isValidPassword() && self.passwordConfirmation.isValidPassword() && samePassword && !self.name.isEmpty && photoPicker.photoSelection != nil
+                    
+                    Button(action: postUser) {
+                        Text ("Sign Up")
+                    }.frame(width: 300, height: 40)
+                        .background(validFields ? Color.pink : Color.gray)
+                        .foregroundColor(Color.white)
+                        .cornerRadius(10)
+                        .padding()
                 }
             }
+            if isLoading {
+                ModalProgressView()
+            }
+        }
     }
     
     private func postUser(){
-        let url = URL(string: "https://us-central1-balcardev-wishlist.cloudfunctions.net/app/api/users")
-        var request = URLRequest(url: url!)
-        
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
-        
-        let userDictionary = [
-            "name": name,
-            "email": email,
-            "password": password,
-        ]
-        request.httpBody = try? JSONEncoder().encode(userDictionary)
+        isLoading = true
+        WebService().signUp(username: name, email: email, password: password) { result in
+            switch result {
+            case .success():
+                uploadImage(for: email)
+            case .failure(_):
+                isLoading = false
+                //mostrar un error
+            }
+        }
+    }
     
-        URLSession.shared.dataTask(with: request) { (data, response, error) in
-            guard let httpResponse = response as? HTTPURLResponse else {
-                // some error
-                return
+    private func uploadImage(for email: String){
+        let data = photoPicker.imageData
+        WebService().uploadImage(imageData: data) { result in
+            switch result {
+            case .success(let imageUrl):
+                updateProfileImage(with: imageUrl)
+            case .failure(_):
+                isLoading = false
+                //mostrar un error
             }
-            if httpResponse.statusCode == 200 {
-                guard let data = data,
-                      //TODO
-                      let _ = try? JSONDecoder().decode(User.self, from: data)
-                else {
-                    // some error
-                    return
-                }
-            }
-            
-        }.resume()
+        }
+    }
+    
+    private func updateProfileImage(with imageUrl: String){
+        WebService().updateProfile(imageUrl: imageUrl) { result in
+            isLoading = false
+            switch result {
+            case .success():
+                navigationStackViews.append(.emailVerification)
+            case .failure(let error):
+                print (error)
+                //mostrar un error
+            }   
+        }
     }
 }
 
 struct SignUpView_Previews: PreviewProvider {
+    @State static var fakeStack: [LoginNavigationViews] = [.signUp, .emailVerification]
     static var previews: some View {
-        SignUpView(authenticationViewModel: AuthenticationViewModel())
+        SignUpView(navigationStackViews: $fakeStack)
     }
 }

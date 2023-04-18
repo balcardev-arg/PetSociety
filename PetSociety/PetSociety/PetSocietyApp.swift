@@ -8,29 +8,29 @@
 import SwiftUI
 import Firebase
 
-class appDelegate: NSObject,UIApplicationDelegate {
-    func application(_ application: UIApplication,
-    didFinishLaunchingWithOptions launchOptions:
-                     [UIApplication.LaunchOptionsKey: Any]?) ->Bool {
-        FirebaseApp.configure()
-        
-        return true
-    }
-}
-
 @main
 struct PetSocietyApp: App {
-    @UIApplicationDelegateAdaptor(appDelegate.self) var delegate
-    @StateObject var authenticationViewModel = AuthenticationViewModel()
-    @AppStorage("UserToken") var TokenUser: String?
+    
+    init() {
+        FirebaseApp.configure()
+        setNavigationViewAppearance()
+    }
+    
     var body: some Scene {
         WindowGroup {
-            if Auth.auth().currentUser != nil {
-                TabBar()
-            } else {
-                SignInView(authenticationViewModel: authenticationViewModel)
-            }
-            
+            SignInViewFake()
         }
+    }
+    
+    private func setNavigationViewAppearance() {
+        let coloredAppearance = UINavigationBarAppearance()
+        coloredAppearance.configureWithOpaqueBackground()
+        coloredAppearance.backgroundColor = UIColor(hex: "#e4f5ff")
+        coloredAppearance.titleTextAttributes = [.foregroundColor: UIColor.black]
+        coloredAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.black]
+        coloredAppearance.backButtonAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.black]
+        
+        UINavigationBar.appearance().standardAppearance = coloredAppearance
+        UINavigationBar.appearance().scrollEdgeAppearance = coloredAppearance
     }
 }
