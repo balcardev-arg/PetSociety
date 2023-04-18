@@ -15,6 +15,7 @@ struct User: Decodable {
 }
 
 struct SignUpView: View {
+    @StateObject var photoPicker: PhotoPicker = PhotoPicker()
     @State private var email: String = ""
     @State private var password: String = ""
     @State private var passwordConfirmation = ""
@@ -27,12 +28,15 @@ struct SignUpView: View {
             ZStack{
                 Color(red: 228/255, green: 245/255, blue: 254/255).ignoresSafeArea()
                 VStack (alignment: .center){
-                    Image(systemName: "person.circle")
+                    photoPicker.image
                         .resizable()
                         .frame(width: 120, height: 120)
+                        .clipShape(Circle())
                         .foregroundColor(Color.pink)
                         .padding(10)
-                    Button("Select image") {}
+                    
+                    PhotosPicker(selection: $photoPicker.photoSelection, matching: .images, photoLibrary: .shared()) {
+                        Text("Select image")}
                     Spacer()
                     VStack(alignment: .leading) {
                         Text("Email")
@@ -109,7 +113,8 @@ struct SignUpView: View {
                             Spacer()
                         }
                         let samePassword = password == passwordConfirmation
-                        let validFields = email.isValidEmail(email) && password.isValidPassword() && passwordConfirmation.isValidPassword() && samePassword && !name.isEmpty
+                        
+                        let validFields = self.email.isValidEmail() && self.password.isValidPassword() && self.passwordConfirmation.isValidPassword() && samePassword && !self.name.isEmpty && photoPicker.photoSelection != nil
                         
                         Button(action: postUser) {
                             Text ("Sign Up")
@@ -136,6 +141,7 @@ struct SignUpView: View {
             "email": email,
             "password": password,
         ]
+        
         request.httpBody = try? JSONEncoder().encode(userDictionary)
     
         URLSession.shared.dataTask(with: request) { (data, response, error) in
@@ -154,6 +160,10 @@ struct SignUpView: View {
             }
             
         }.resume()
+    }
+    
+    private func uploadProfileImage(){
+        
     }
 }
 
