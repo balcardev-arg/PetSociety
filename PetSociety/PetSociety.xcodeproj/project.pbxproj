@@ -110,10 +110,12 @@
 		9780672829CB64F200EFEE52 = {
 			isa = PBXGroup;
 			children = (
+				CD3ED9B129D46467000EF495 /* GoogleService-Info.plist */,
 				9780673329CB64F200EFEE52 /* PetSociety */,
 				9780674429CB64F300EFEE52 /* PetSocietyTests */,
 				9780674E29CB64F300EFEE52 /* PetSocietyUITests */,
 				9780673229CB64F200EFEE52 /* Products */,
+				CD3ED9A829D36C76000EF495 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -176,6 +178,26 @@
 				9780675129CB64F300EFEE52 /* PetSocietyUITestsLaunchTests.swift */,
 			);
 			path = PetSocietyUITests;
+			sourceTree = "<group>";
+		};
+		CD3ED9A829D36C76000EF495 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CD3ED9B529D47968000EF495 /* AuthenticationViews */ = {
+			isa = PBXGroup;
+			children = (
+				978E930629CB6A3F00B665FE /* SignUpView.swift */,
+				CD3ED9B829D48295000EF495 /* AuthenticationViewModel.swift */,
+				CD3ED99A29D31917000EF495 /* SignInView.swift */,
+				9778167B29CCD6F80001C84D /* StringExtension.swift */,
+				CD3ED9B329D465FA000EF495 /* AuthenticationFirebaseDatasource.swift */,
+				CD3ED9B629D47F8B000EF495 /* AuthenticationRepository.swift */,
+			);
+			path = AuthenticationViews;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -293,6 +315,7 @@
 				9780673C29CB64F300EFEE52 /* Preview Assets.xcassets in Resources */,
 				974B237B29D36A5C00411FD1 /* GoogleService-Info.plist in Resources */,
 				9780673929CB64F300EFEE52 /* Assets.xcassets in Resources */,
+				CD3ED9B229D46467000EF495 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
