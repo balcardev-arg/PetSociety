@@ -32,7 +32,7 @@ struct PetSocietyApp: App {
     
     var body: some Scene {
         WindowGroup {
-            HomeView(posts: posts)
+            SignInViewFake()
         }
     }
     

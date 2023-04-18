@@ -4,7 +4,6 @@
 //
 //  Created by Layla Cisneros on 22/03/2023.
 //
-
 import SwiftUI
 import PhotosUI
 
@@ -167,7 +166,7 @@ struct SignUpView: View {
             case .failure(let error):
                 print (error)
                 //mostrar un error
-            }   
+            }
         }
     }
 }
