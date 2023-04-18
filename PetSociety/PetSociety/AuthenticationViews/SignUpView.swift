@@ -8,26 +8,18 @@
 import SwiftUI
 import PhotosUI
 
-<<<<<<< HEAD:PetSociety/PetSociety/AuthenticationViews/SignUpView.swift
 struct User: Codable {
     let name: String
     let email: String
     let password: String
 }
-
 struct SignUpView: View {
-    @ObservedObject var authenticationViewModel: AuthenticationViewModel
-    
-=======
-
-struct SignUpView: View {
-    
+     @ObservedObject var authenticationViewModel: AuthenticationViewModel
     @Binding var navigationStackViews: [LoginNavigationViews]
     
     @AppStorage("isLogged") var isLogged: Bool = false
     
     @StateObject var photoPicker: PhotoPicker = PhotoPicker()
->>>>>>> main:PetSociety/PetSociety/SignUpView.swift
     @State private var email: String = ""
     @State private var password: String = ""
     @State private var passwordConfirmation = ""
@@ -99,7 +91,6 @@ struct SignUpView: View {
                                 .frame(width: 350, height: 50)
                                 .background(Color.white)
                         }
-<<<<<<< HEAD:PetSociety/PetSociety/AuthenticationViews/SignUpView.swift
                         let samePassword = password == passwordConfirmation
                         let validFields = email.isValidEmail() && password.isValidPassword() && passwordConfirmation.isValidPassword() && samePassword && !name.isEmpty
                         
@@ -117,7 +108,6 @@ struct SignUpView: View {
                                 .foregroundColor(.red)
                                 .padding(.top, 20)
                         }
-=======
                         Button (action: {
                             self.isPasswordConfirmationVisible.toggle()
                         })
@@ -143,7 +133,6 @@ struct SignUpView: View {
                             .font(.footnote)
                             .foregroundColor(.red)
                         Spacer()
->>>>>>> main:PetSociety/PetSociety/SignUpView.swift
                     }
                     let samePassword = password == passwordConfirmation
                     
@@ -207,10 +196,6 @@ struct SignUpView: View {
 struct SignUpView_Previews: PreviewProvider {
     @State static var fakeStack: [LoginNavigationViews] = [.signUp, .emailVerification]
     static var previews: some View {
-<<<<<<< HEAD:PetSociety/PetSociety/AuthenticationViews/SignUpView.swift
-        SignUpView(authenticationViewModel: AuthenticationViewModel())
-=======
         SignUpView(navigationStackViews: $fakeStack)
->>>>>>> main:PetSociety/PetSociety/SignUpView.swift
     }
 }
