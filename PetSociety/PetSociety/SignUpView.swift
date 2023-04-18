@@ -7,8 +7,13 @@
 
 import SwiftUI
 import PhotosUI
+import FirebaseStorage
+
 
 struct SignUpView: View {
+    
+    @AppStorage("isLogged") var isLogged: Bool = false
+    
     @StateObject var photoPicker: PhotoPicker = PhotoPicker()
     @State private var email: String = ""
     @State private var password: String = ""
@@ -17,109 +22,114 @@ struct SignUpView: View {
     @State private var displayName: String = ""
     @State private var isPasswordVisible: Bool = false
     @State private var isPasswordConfirmationVisible: Bool = false
+    @State private var isLoading: Bool = false
+    
     
     var body: some View {
-            ZStack{
-                Color(red: 228/255, green: 245/255, blue: 254/255).ignoresSafeArea()
-                VStack (alignment: .center){
-                    photoPicker.image
-                        .resizable()
-                        .frame(width: 120, height: 120)
-                        .clipShape(Circle())
-                        .foregroundColor(Color.pink)
-                        .padding(10)
+        ZStack() {
+            ColorExtensionView()
+            VStack (alignment: .center){
+                photoPicker.image
+                    .resizable()
+                    .frame(width: 120, height: 120)
+                    .clipShape(Circle())
+                    .foregroundColor(Color.pink)
+                    .padding(10)
+                
+                PhotosPicker(selection: $photoPicker.photoSelection, matching: .images, photoLibrary: .shared()) {
+                    Text("Select image")}
+                Spacer()
+                VStack(alignment: .leading) {
+                    Text("Email")
+                        .fontWeight(.bold)
+                    TextField("name@example.com", text: $email)
+                        .padding()
+                        .frame(width: 350, height: 50)
+                        .background(Color.white)
+                        .textInputAutocapitalization(.never)
+                        .keyboardType(.emailAddress)
+                    Text("Password")
+                        .fontWeight(.bold)
                     
-                    PhotosPicker(selection: $photoPicker.photoSelection, matching: .images, photoLibrary: .shared()) {
-                        Text("Select image")}
-                    Spacer()
-                    VStack(alignment: .leading) {
-                        Text("Email")
+                    HStack (spacing: -40){
+                        if (isPasswordVisible) {
+                            TextField("Password", text: $password)
+                                .padding()
+                                .frame(width: 350, height: 50)
+                                .background(Color.white)
+                                .textInputAutocapitalization(.never)
+                        } else {
+                            SecureField("Password", text: $password)
+                                .padding()
+                                .frame(width: 350, height: 50)
+                                .background(Color.white)
+                        }
+                        Button (action: {
+                            self.isPasswordVisible.toggle()
+                        })
+                        { Image(systemName: isPasswordVisible ? "eye.fill" : "eye.slash.fill")
+                                .foregroundColor(.gray)
+                        }
+                    }
+                    Text("Password confirmation")
+                        .fontWeight(.bold)
+                    
+                    HStack (spacing: -40) {
+                        if (isPasswordConfirmationVisible) {
+                            TextField("Password", text: $passwordConfirmation)
+                                .padding()
+                                .frame(width: 350, height: 50)
+                                .background(Color.white)
+                                .textInputAutocapitalization(.never)
+                        } else {
+                            SecureField("Password", text: $passwordConfirmation)
+                                .padding()
+                                .frame(width: 350, height: 50)
+                                .background(Color.white)
+                        }
+                        Button (action: {
+                            self.isPasswordConfirmationVisible.toggle()
+                        })
+                        { Image(systemName: isPasswordConfirmationVisible ? "eye.fill" : "eye.slash.fill")
+                                .foregroundColor(.gray)
+                        }
+                    }
+                    VStack (alignment: .leading) {
+                        Text("Name")
                             .fontWeight(.bold)
-                        TextField("name@example.com", text: $email)
+                            .frame(alignment: .trailing)
+                        TextField("Sample name", text: $name)
                             .padding()
                             .frame(width: 350, height: 50)
                             .background(Color.white)
-                            .textInputAutocapitalization(.never)
-                            .keyboardType(.emailAddress)
-                        Text("Password")
+                        Text("Display name")
                             .fontWeight(.bold)
-                        
-                        HStack (spacing: -40){
-                            if (isPasswordVisible) {
-                                TextField("Password", text: $password)
-                                    .padding()
-                                    .frame(width: 350, height: 50)
-                                    .background(Color.white)
-                                    .textInputAutocapitalization(.never)
-                            } else {
-                                SecureField("Password", text: $password)
-                                    .padding()
-                                    .frame(width: 350, height: 50)
-                                    .background(Color.white)
-                            }
-                            Button (action: {
-                                self.isPasswordVisible.toggle()
-                            })
-                            { Image(systemName: isPasswordVisible ? "eye.fill" : "eye.slash.fill")
-                                    .foregroundColor(.gray)
-                            }
-                        }
-                        Text("Password confirmation")
-                            .fontWeight(.bold)
-                        
-                        HStack (spacing: -40) {
-                            if (isPasswordConfirmationVisible) {
-                                TextField("Password", text: $passwordConfirmation)
-                                    .padding()
-                                    .frame(width: 350, height: 50)
-                                    .background(Color.white)
-                                    .textInputAutocapitalization(.never)
-                            } else {
-                                SecureField("Password", text: $passwordConfirmation)
-                                    .padding()
-                                    .frame(width: 350, height: 50)
-                                    .background(Color.white)
-                            }
-                            Button (action: {
-                                self.isPasswordConfirmationVisible.toggle()
-                            })
-                            { Image(systemName: isPasswordConfirmationVisible ? "eye.fill" : "eye.slash.fill")
-                                    .foregroundColor(.gray)
-                            }
-                        }
-                        VStack (alignment: .leading) {
-                            Text("Name")
-                                .fontWeight(.bold)
-                                .frame(alignment: .trailing)
-                            TextField("Sample name", text: $name)
-                                .padding()
-                                .frame(width: 350, height: 50)
-                                .background(Color.white)
-                            Text("Display name")
-                                .fontWeight(.bold)
-                            TextField("Sample display name", text: $displayName)
-                                .padding()
-                                .frame(width: 350, height: 50)
-                                .background(Color.white)
-                            Text("This will be defaulted to the name if none is provide")
-                                .font(.footnote)
-                                .foregroundColor(.red)
-                            Spacer()
-                        }
-                        let samePassword = password == passwordConfirmation
-                        
-                        let validFields = self.email.isValidEmail() && self.password.isValidPassword() && self.passwordConfirmation.isValidPassword() && samePassword && !self.name.isEmpty && photoPicker.photoSelection != nil
-                        
-                        Button(action: postUser) {
-                            Text ("Sign Up")
-                        }.frame(width: 300, height: 40)
-                            .background(validFields ? Color.pink : Color.gray)
-                            .foregroundColor(Color.white)
-                            .cornerRadius(10)
+                        TextField("Sample display name", text: $displayName)
                             .padding()
+                            .frame(width: 350, height: 50)
+                            .background(Color.white)
+                        Text("This will be defaulted to the name if none is provide")
+                            .font(.footnote)
+                            .foregroundColor(.red)
+                        Spacer()
                     }
+                    let samePassword = password == passwordConfirmation
+                    
+                    let validFields = self.email.isValidEmail() && self.password.isValidPassword() && self.passwordConfirmation.isValidPassword() && samePassword && !self.name.isEmpty && photoPicker.photoSelection != nil
+                    
+                    Button(action: postUser) {
+                        Text ("Sign Up")
+                    }.frame(width: 300, height: 40)
+                        .background(validFields ? Color.pink : Color.gray)
+                        .foregroundColor(Color.white)
+                        .cornerRadius(10)
+                        .padding()
                 }
             }
+            if isLoading {
+                ModalProgressView()
+            }
+        }
     }
     
     private func postUser(){
@@ -130,6 +140,7 @@ struct SignUpView: View {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
         
+        isLoading = true
         let userDictionary = [
             "name": name,
             "email": email,
@@ -137,23 +148,59 @@ struct SignUpView: View {
         ]
         
         request.httpBody = try? JSONEncoder().encode(userDictionary)
-    
+        
         URLSession.shared.dataTask(with: request) { (data, response, error) in
+            
             guard let httpResponse = response as? HTTPURLResponse else {
                 // some error
+                isLoading = false
                 return
             }
             if httpResponse.statusCode == 200 {
                 guard let data = data,
                       //TODO
-                      let _ = try? JSONDecoder().decode(User.self, from: data)
+                      let user = try? JSONDecoder().decode(User.self, from: data)
                 else {
                     // some error
+                    isLoading = false
                     return
                 }
+                uploadImage(for: user)
+            }
+        }.resume()
+    }
+    
+    private func uploadImage(for user: User){
+        // Creo una referencia a storage
+        let storageReference = Storage.storage().reference()
+        
+        // guardo en data la imagen que se selecciona en el photopicker
+        let data = photoPicker.imageData
+        
+        // a mi referencia de la imagen le digo en donde guardarse
+        let imageReference = storageReference.child("\(user.id)/profilePicture.jpg")
+        
+        // le aplico putData para que me traiga metadata y error
+        imageReference.putData(data) { metadata, error in
+            
+            // si la image trae metadata se le aplica downloadURL para que traiga URL o error
+            guard let _ = metadata else {
+                isLogged = true
+                
+                return
             }
             
-        }.resume()
+            // si trae url se guarda como parametro en la funcion uploadProfileImage
+            imageReference.downloadURL { (url, error) in
+                guard let imageURL = url else {
+                    isLogged = true
+                    return
+                }
+                
+                uploadProfileImage(with: imageURL.absoluteString, user: user)
+            }
+        }
+        // En los errores, si no se pudo crear la imagen o si no se obtuvo la url, el usuario igualmente se puede loguear
     }
     
     private func uploadProfileImage(with imageUrl: String, user: User){
@@ -168,9 +215,13 @@ struct SignUpView: View {
         request.httpMethod = "PUT"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
+        isLoading = true
         request.httpBody = try? JSONEncoder().encode(userDictionary)
         
+        
         URLSession.shared.dataTask(with: request) { data, response, error in
+            isLoading = false
+            isLogged = true
             guard let httpResponse = response as? HTTPURLResponse else {
                 // some error
                 return
@@ -182,6 +233,8 @@ struct SignUpView: View {
                     return
                 }
             }
+            
+            
         }.resume()
     }
 }
