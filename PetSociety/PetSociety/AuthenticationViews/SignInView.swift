@@ -101,7 +101,7 @@ struct SignInView: View {
                             }
                         }
                         
-                        NavigationLink(destination: SignUpView(authenticationViewModel: AuthenticationViewModel())){
+                        NavigationLink(destination: Text("")){
                             Text("Sign up")
                                 .bold()
                                 .foregroundColor(.pink)

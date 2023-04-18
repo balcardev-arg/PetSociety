@@ -4,19 +4,12 @@
 //
 //  Created by Layla Cisneros on 22/03/2023.
 //
-
 import SwiftUI
 import PhotosUI
 
-struct User: Codable, Identifiable {
-    let id: String
-    let name: String
-    let email: String
-    let password: String
-    let imageUrl: String
-}
+
 struct SignUpView: View {
-     @ObservedObject var authenticationViewModel: AuthenticationViewModel
+    
     @Binding var navigationStackViews: [LoginNavigationViews]
     
     @AppStorage("isLogged") var isLogged: Bool = false
@@ -92,23 +85,6 @@ struct SignUpView: View {
                                 .padding()
                                 .frame(width: 350, height: 50)
                                 .background(Color.white)
-                        }
-                        let samePassword = password == passwordConfirmation
-                        let validFields = email.isValidEmail() && password.isValidPassword() && passwordConfirmation.isValidPassword() && samePassword && !name.isEmpty
-                        
-                        Button("Sign Up") {
-                                authenticationViewModel.createNewUser(email: email, password: password)
-                            }.frame(width: 300, height: 40)
-                            .background(validFields ? Color.pink : Color.gray)
-                            .foregroundColor(Color.white)
-                            .cornerRadius(10)
-                            .padding()
-                        if let messageError = authenticationViewModel.messageError {
-                            Text(messageError)
-                                .bold()
-                                .font(.body)
-                                .foregroundColor(.red)
-                                .padding(.top, 20)
                         }
                         Button (action: {
                             self.isPasswordConfirmationVisible.toggle()
@@ -190,7 +166,7 @@ struct SignUpView: View {
             case .failure(let error):
                 print (error)
                 //mostrar un error
-            }   
+            }
         }
     }
 }

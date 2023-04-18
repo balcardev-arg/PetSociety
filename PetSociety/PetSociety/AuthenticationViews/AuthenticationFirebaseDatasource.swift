@@ -19,7 +19,7 @@ final class AutheticationFirebaseDatasource {
             }
             let email = AuthDataResult?.user.email ?? "No email"
             print("New user created with info\(email)")
-            completionBlock(.success(User(id: "1", name: "", email: "", password: "", imageUrl: "")))
+            completionBlock(.success(User(name: "", email: "", imageUrl: "")))
         
         }
     }
@@ -32,7 +32,7 @@ final class AutheticationFirebaseDatasource {
             }
             let email = AuthDataResult?.user.email ?? "No email"
             print("User login\(email)")
-            completionBlock(.success(User(id: "1",name: "", email: "", password: "", imageUrl: "")))
+            completionBlock(.success(User(name: "", email: "", imageUrl: "")))
         
         }
     }

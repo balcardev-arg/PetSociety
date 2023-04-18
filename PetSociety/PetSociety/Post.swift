@@ -18,9 +18,10 @@ struct Post: Decodable, Identifiable {
     let comments: [Comment]
 }
 
-struct Comment: Decodable, Identifiable {
+struct Comment: Decodable, Identifiable, Hashable {
     let id: String
     let author: String
+    let authorImageUrl: String
     let comment: String
     let createdAt: Date
 }
