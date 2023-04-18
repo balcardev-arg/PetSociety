@@ -7,6 +7,12 @@
 
 import SwiftUI
 
+enum LoginNavigationViews: String, Hashable {
+    case signUp
+    case emailVerification
+    case forgotPassword
+}
+
 struct SignInViewFake: View {
     @State var navigationStackViews: [LoginNavigationViews] = []
     
@@ -36,10 +42,4 @@ struct SignInView_Previews: PreviewProvider {
     static var previews: some View {
         SignInViewFake()
     }
-}
-
-enum LoginNavigationViews: String, Hashable {
-    case signUp
-    case emailVerification
-    case forgotPassword
 }
