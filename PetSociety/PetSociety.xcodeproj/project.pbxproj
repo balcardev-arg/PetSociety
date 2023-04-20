@@ -14,7 +14,7 @@
 		9710878429D4757100994BA3 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9710878329D4757100994BA3 /* ColorExtension.swift */; };
 		9710878629D4A5A700994BA3 /* ModalProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9710878529D4A5A700994BA3 /* ModalProgressView.swift */; };
 		9710878829D4C4C900994BA3 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9710878729D4C4C900994BA3 /* HomeView.swift */; };
-		9738280629DDC042005E47DF /* SignInViewFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9738280529DDC042005E47DF /* SignInViewFake.swift */; };
+		9738280629DDC042005E47DF /* AuthenticationNavigatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9738280529DDC042005E47DF /* AuthenticationNavigatorView.swift */; };
 		9738280829DDD077005E47DF /* EmailVerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9738280729DDD077005E47DF /* EmailVerificationView.swift */; };
 		9738280A29DDD26A005E47DF /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9738280929DDD26A005E47DF /* ForgotPasswordView.swift */; };
 		973F3B3429E5C9CD00542B57 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973F3B3329E5C9CD00542B57 /* Date+Extension.swift */; };
@@ -68,7 +68,7 @@
 		9710878329D4757100994BA3 /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		9710878529D4A5A700994BA3 /* ModalProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalProgressView.swift; sourceTree = "<group>"; };
 		9710878729D4C4C900994BA3 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
-		9738280529DDC042005E47DF /* SignInViewFake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewFake.swift; sourceTree = "<group>"; };
+		9738280529DDC042005E47DF /* AuthenticationNavigatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationNavigatorView.swift; sourceTree = "<group>"; };
 		9738280729DDD077005E47DF /* EmailVerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailVerificationView.swift; sourceTree = "<group>"; };
 		9738280929DDD26A005E47DF /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
 		973F3B3329E5C9CD00542B57 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
@@ -149,13 +149,13 @@
 		9780673329CB64F200EFEE52 /* PetSociety */ = {
 			isa = PBXGroup;
 			children = (
+				9780673429CB64F200EFEE52 /* PetSocietyApp.swift */,
 				97D43BA329EF158A00AF0293 /* TabBar.swift */,
 				9707728929E86CA50061900F /* PostCell.swift */,
 				9707728729E84CC30061900F /* PostView.swift */,
+				9738280529DDC042005E47DF /* AuthenticationNavigatorView.swift */,
 				CD96A6BB29EED8A60026FBC2 /* AuthenticationViews */,
-				9780673429CB64F200EFEE52 /* PetSocietyApp.swift */,
 				970F2BB629DF53AD00AD85C6 /* Post.swift */,
-				9738280529DDC042005E47DF /* SignInViewFake.swift */,
 				9738280929DDD26A005E47DF /* ForgotPasswordView.swift */,
 				9746BFE229DC8878004EEB3F /* UIColor+Extension.swift */,
 				9752A90029D600FA002DC6FF /* ColorExtensionView.swift */,
@@ -383,7 +383,7 @@
 				CD96A6C729EED8A60026FBC2 /* AuthenticationViewModel.swift in Sources */,
 				CD96A6C329EED8A60026FBC2 /* AuthenticationFirebaseDatasource.swift in Sources */,
 				9738280A29DDD26A005E47DF /* ForgotPasswordView.swift in Sources */,
-				9738280629DDC042005E47DF /* SignInViewFake.swift in Sources */,
+				9738280629DDC042005E47DF /* AuthenticationNavigatorView.swift in Sources */,
 				9707728A29E86CA50061900F /* PostCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

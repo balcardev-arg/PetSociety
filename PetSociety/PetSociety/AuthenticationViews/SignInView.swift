@@ -10,6 +10,8 @@ import SwiftUI
 
 struct SignInView: View {
     
+    @Binding var navigationStackViews: [LoginNavigationViews]
+    
     @ObservedObject var authenticationViewModel: AuthenticationViewModel
     
     @State private var email: String = ""
@@ -23,15 +25,14 @@ struct SignInView: View {
     var body: some View {
         NavigationView(){
             ZStack {
-                Color(red:229.0/255.0 , green: 243.0/255.0, blue: 254.0/255.0)
-                    .ignoresSafeArea(.all)
+                ColorExtensionView()
                 VStack (spacing: 30){
-                    Image("Logo")
+                    Image(systemName: "shazam.logo")
                         .resizable()
-                        .frame(width: 160, height: 180)
+                        .frame(width: 160, height: 160)
                         .clipShape(Circle())
                         .overlay(Circle().stroke(Color(.gray)))
-                        .shadow(radius:2)
+                        .foregroundColor(.pink)
                     
                     VStack(alignment: .leading, spacing: 20) {
                         Text("Sign In")
@@ -99,14 +100,11 @@ struct SignInView: View {
                                 }
                             }
                         
-                        NavigationLink(destination: Text("")){
-                            Text("Sign up")
-                                .bold()
-                                .foregroundColor(.pink)
-                                .padding()
-                        }
+                        Button("Sign up"){
+                            navigationStackViews.append(.signUp)
+                            print(navigationStackViews)
+                        }.padding()
                     }
-                    
                     Spacer()
                 }
                 .padding()
@@ -159,11 +157,13 @@ struct SignInView: View {
         }.resume()
     }
     
-    struct ContentView_Previews: PreviewProvider {
-        static var previews: some View {
-            SignInView(authenticationViewModel: AuthenticationViewModel())
-            
-        }
-    }
-    
 }
+struct ContentView_Previews: PreviewProvider {
+    @State static var fakeNavigationStackViews = [LoginNavigationViews]()
+    static var previews: some View {
+        SignInView(navigationStackViews: $fakeNavigationStackViews , authenticationViewModel: AuthenticationViewModel())
+        
+    }
+}
+
+
