@@ -10,6 +10,8 @@ import SwiftUI
 
 struct SignInView: View {
     
+    @Binding var navigationStackViews: [LoginNavigationViews]
+    
     @ObservedObject var authenticationViewModel: AuthenticationViewModel
     
     @State private var email: String = ""
@@ -23,39 +25,37 @@ struct SignInView: View {
     var body: some View {
         NavigationView(){
             ZStack {
-                Color(red:229.0/255.0 , green: 243.0/255.0, blue: 254.0/255.0)
-                    .ignoresSafeArea(.all)
-                VStack(spacing: 20.0) {
-                    Image("Logo")
+                ColorExtensionView()
+                VStack (spacing: 30){
+                    Image(systemName: "shazam.logo")
                         .resizable()
-                        .frame(width: 180, height: 180)
+                        .frame(width: 160, height: 160)
                         .clipShape(Circle())
                         .overlay(Circle().stroke(Color(.gray)))
-                        .shadow(radius:2)
+                        .foregroundColor(.pink)
                     
-                    Text("Sign in")
-                        .font(.largeTitle)
-                        .bold()
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding()
+                    VStack(alignment: .leading, spacing: 20) {
+                        Text("Sign In")
+                            .font(.largeTitle)
+                            .bold()
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding()
                         
+                        Text("Email")
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .bold()
                         
-                    
-                    Text("Email")
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .bold()
-                    
-                    TextField("Email", text: $email)
-                        .padding()
-                        .background(Color.black.opacity(0.05))
-                        .frame(width: 380)
-                        .textInputAutocapitalization(.never)
-                        .keyboardType(.emailAddress)
-                    
-                    Text("Password")
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .bold()
-                    
+                        TextField("Email", text: $email)
+                            .padding()
+                            .frame(width: 350, height: 50)
+                            .background(Color.white)
+                            .textInputAutocapitalization(.never)
+                            .keyboardType(.emailAddress)
+                        
+                        Text("Password")
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .bold()
+                    }
                     HStack () {
                         if self.passwordIsVisible {
                             TextField("Password", text: $password)
@@ -70,8 +70,8 @@ struct SignInView: View {
                                 .foregroundColor(.gray)
                         }
                     }.padding()
-                        .background(Color.black.opacity(0.05))
-                        .frame(width: 380)
+                        .background(Color.white)
+                        .frame(width: 350,height: 50)
                     
                     let validFields = self.email.isValidEmail() && self.password.isValidPassword()
                     
@@ -79,8 +79,8 @@ struct SignInView: View {
                         authenticationViewModel.login(email: email, password: password)
                     }.foregroundColor(.white)
                         .frame(width: 300,height: 50)
-                        .background(validFields ? .green : .pink)
-                        .cornerRadius(25)
+                        .background(validFields ? .pink : .gray)
+                        .cornerRadius(10)
                         .disabled(!validFields)
                     if let messageError = authenticationViewModel.messageError {
                         Text(messageError)
@@ -89,36 +89,31 @@ struct SignInView: View {
                             .foregroundColor(.red)
                             .padding(.top, 20)
                     }
-                    
                     HStack {
                         Button("Forgot Password?"){
                             showForgotPasswordView = true
                         }.frame(maxWidth: .infinity, alignment: .leading)
                             .padding()
-                        .sheet(isPresented: $showForgotPasswordView){
-                            ZStack{
-                                Color.white.ignoresSafeArea()
+                            .sheet(isPresented: $showForgotPasswordView){
+                                ZStack{
+                                    Color.white.ignoresSafeArea()
+                                }
                             }
-                        }
                         
-                        NavigationLink(destination: Text("")){
-                            Text("Sign up")
-                                .bold()
-                                .foregroundColor(.pink)
-                                .padding()
-                        }
+                        Button("Sign up"){
+                            navigationStackViews.append(.signUp)
+                            print(navigationStackViews)
+                        }.padding()
                     }
-                    
-                   
+                    Spacer()
                 }
-
                 .padding()
                 
                 .overlay {
                     if isLoading {
                         ProgressView()
                     }
-            }
+                }
             }
         }
     }
@@ -126,21 +121,21 @@ struct SignInView: View {
     private func loginUser() {
         
         let url = URL(string: "https://us-central1-balcardev-wishlist.cloudfunctions.net/app/api/users/login")
-               var request = URLRequest(url: url!)
-               
-               request.httpMethod = "POST"
-               request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-               request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
-               
-               let userDictionary = [
-                   "email": email,
-                   "password": password
-               ]
-               request.httpBody = try? JSONEncoder().encode(userDictionary)
+        var request = URLRequest(url: url!)
+        
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
+        
+        let userDictionary = [
+            "email": email,
+            "password": password
+        ]
+        request.httpBody = try? JSONEncoder().encode(userDictionary)
         
         URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
-            let _ = try? JSONDecoder().decode(User.self, from: data)
+                  let _ = try? JSONDecoder().decode(User.self, from: data)
             else {
                 print("usuario no encontrado")
                 return
@@ -162,11 +157,13 @@ struct SignInView: View {
         }.resume()
     }
     
-    struct ContentView_Previews: PreviewProvider {
-        static var previews: some View {
-            SignInView(authenticationViewModel: AuthenticationViewModel())
-            
-        }
-    }
-    
 }
+struct ContentView_Previews: PreviewProvider {
+    @State static var fakeNavigationStackViews = [LoginNavigationViews]()
+    static var previews: some View {
+        SignInView(navigationStackViews: $fakeNavigationStackViews , authenticationViewModel: AuthenticationViewModel())
+        
+    }
+}
+
+
