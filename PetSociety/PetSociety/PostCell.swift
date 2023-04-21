@@ -24,6 +24,7 @@ struct PostCell: View {
                                 .frame(width: 50, height: 50)
                                 .clipShape(Circle())
                                 .overlay(Circle().stroke(Color(.gray), lineWidth: 1))
+                                .padding(5)
                         } else {
                             ProgressView()
                         }
@@ -41,21 +42,17 @@ struct PostCell: View {
                             if let image = phase.image {
                                 image
                                     .resizable()
-//                                    .frame(height: UIScreen.main.bounds.width - 20)
-//                                    .frame(maxWidth: UIScreen.main.bounds.width - 20)
-                                    .scaledToFit()
-                                    .frame(width: 400, height: 300)
-                                    .foregroundColor(.black)
+                                    .frame(width: .infinity, height: 350)
                             } else {
                                 ProgressView()
-                                    .frame(height: UIScreen.main.bounds.width)
-                                    .frame(maxWidth: UIScreen.main.bounds.width)
+                                    .scaleEffect(3)
+                                    .frame(width: .infinity, height: 350)
                             }
                         }
                     }
                     RoundedRectangle(cornerRadius: 4)
                         .fill(.gray.opacity(0.8))
-                        .frame(height: 100)
+                        .frame(height: 90)
                     VStack(alignment: .leading){
                         HStack(alignment: .top){
                             Image(systemName: "heart.fill")
