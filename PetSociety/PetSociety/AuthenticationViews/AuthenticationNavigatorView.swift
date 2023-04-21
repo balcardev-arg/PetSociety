@@ -11,6 +11,7 @@ enum LoginNavigationViews: String, Hashable {
     case signUp
     case emailVerification
     case forgotPassword
+    case resetPasswordVerification
 }
 
 struct AuthenticationNavigatorView: View {
@@ -25,9 +26,11 @@ struct AuthenticationNavigatorView: View {
                     case .signUp:
                         SignUpView(navigationStackViews: $navigationStackViews)
                     case .emailVerification:
-                        EmailVerificationView(navigationStackViews: $navigationStackViews)
+                        VerificationMessageView(navigationStackViews: $navigationStackViews, message: "Please check your email for verification")
+                    case .resetPasswordVerification:
+                        VerificationMessageView(navigationStackViews: $navigationStackViews, message: "Please check your email to continue the reset process")
                     case .forgotPassword:
-                        ForgotPasswordView()
+                        ForgotPasswordView(navigationStackViews: $navigationStackViews)
                     }
                 }
         }

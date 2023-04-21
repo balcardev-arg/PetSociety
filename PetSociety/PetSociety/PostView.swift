@@ -18,7 +18,7 @@ struct PostView: View {
                         if let image = phase.image {
                             image
                                 .resizable()
-                                .scaledToFit()
+                                .scaledToFill()
                                 .clipShape(Circle())
                                 .frame(width: 50, height: 50)
                                 .clipShape(Circle())
@@ -36,9 +36,8 @@ struct PostView: View {
                 AsyncImage(url: URL(string: post.imageUrl)!) { phase in
                     if let image = phase.image {
                         image
-                            .resizable()
-                            .frame(width: .infinity, height: 400)
-                            .aspectRatio(contentMode: .fill)
+                            .scaledToFit()
+                            .frame(width: 400, height: 400)
                     } else {
                         ProgressView()
                             .scaleEffect(3)
@@ -46,7 +45,7 @@ struct PostView: View {
                     }
                 }
                 
-                Text("\(post.createdAt.timeSince())").padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 10))
+                Text("\(post.createdAt.timeSince())").padding(EdgeInsets(top: 20, leading: 20, bottom: 0, trailing: 10))
                 
                 HStack {
                     Image(systemName: "heart.fill")

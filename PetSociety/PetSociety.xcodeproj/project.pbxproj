@@ -15,7 +15,7 @@
 		9710878629D4A5A700994BA3 /* ModalProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9710878529D4A5A700994BA3 /* ModalProgressView.swift */; };
 		9710878829D4C4C900994BA3 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9710878729D4C4C900994BA3 /* HomeView.swift */; };
 		9738280629DDC042005E47DF /* AuthenticationNavigatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9738280529DDC042005E47DF /* AuthenticationNavigatorView.swift */; };
-		9738280829DDD077005E47DF /* EmailVerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9738280729DDD077005E47DF /* EmailVerificationView.swift */; };
+		9738280829DDD077005E47DF /* VerificationMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9738280729DDD077005E47DF /* VerificationMessageView.swift */; };
 		9738280A29DDD26A005E47DF /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9738280929DDD26A005E47DF /* ForgotPasswordView.swift */; };
 		973F3B3429E5C9CD00542B57 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973F3B3329E5C9CD00542B57 /* Date+Extension.swift */; };
 		9746BFDF29DC693F004EEB3F /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9746BFDE29DC693F004EEB3F /* WebService.swift */; };
@@ -69,7 +69,7 @@
 		9710878529D4A5A700994BA3 /* ModalProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalProgressView.swift; sourceTree = "<group>"; };
 		9710878729D4C4C900994BA3 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		9738280529DDC042005E47DF /* AuthenticationNavigatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationNavigatorView.swift; sourceTree = "<group>"; };
-		9738280729DDD077005E47DF /* EmailVerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailVerificationView.swift; sourceTree = "<group>"; };
+		9738280729DDD077005E47DF /* VerificationMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationMessageView.swift; sourceTree = "<group>"; };
 		9738280929DDD26A005E47DF /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
 		973F3B3329E5C9CD00542B57 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		9746BFDE29DC693F004EEB3F /* WebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebService.swift; sourceTree = "<group>"; };
@@ -149,24 +149,20 @@
 		9780673329CB64F200EFEE52 /* PetSociety */ = {
 			isa = PBXGroup;
 			children = (
+				9780AB1E29F1C136003D0EC9 /* Extension */,
 				9780673429CB64F200EFEE52 /* PetSocietyApp.swift */,
 				97D43BA329EF158A00AF0293 /* TabBar.swift */,
 				9707728929E86CA50061900F /* PostCell.swift */,
 				9707728729E84CC30061900F /* PostView.swift */,
-				9738280529DDC042005E47DF /* AuthenticationNavigatorView.swift */,
 				CD96A6BB29EED8A60026FBC2 /* AuthenticationViews */,
 				970F2BB629DF53AD00AD85C6 /* Post.swift */,
-				9738280929DDD26A005E47DF /* ForgotPasswordView.swift */,
-				9746BFE229DC8878004EEB3F /* UIColor+Extension.swift */,
 				9752A90029D600FA002DC6FF /* ColorExtensionView.swift */,
 				9710878729D4C4C900994BA3 /* HomeView.swift */,
 				9710878529D4A5A700994BA3 /* ModalProgressView.swift */,
-				9710878329D4757100994BA3 /* ColorExtension.swift */,
 				978F46E929D1DD1A0012B1F3 /* PhotoPicker.swift */,
 				974B237429D328E400411FD1 /* User.swift */,
 				9746BFDE29DC693F004EEB3F /* WebService.swift */,
-				9738280729DDD077005E47DF /* EmailVerificationView.swift */,
-				973F3B3329E5C9CD00542B57 /* Date+Extension.swift */,
+				9738280729DDD077005E47DF /* VerificationMessageView.swift */,
 				97A169B629E70E78004D9B32 /* DetailCardView.swift */,
 				9707728529E83FCB0061900F /* CommentView.swift */,
 				974B237A29D36A5C00411FD1 /* GoogleService-Info.plist */,
@@ -201,6 +197,17 @@
 			path = PetSocietyUITests;
 			sourceTree = "<group>";
 		};
+		9780AB1E29F1C136003D0EC9 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				CD96A6BF29EED8A60026FBC2 /* StringExtension.swift */,
+				9746BFE229DC8878004EEB3F /* UIColor+Extension.swift */,
+				973F3B3329E5C9CD00542B57 /* Date+Extension.swift */,
+				9710878329D4757100994BA3 /* ColorExtension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		CD3ED9A829D36C76000EF495 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -211,11 +218,12 @@
 		CD96A6BB29EED8A60026FBC2 /* AuthenticationViews */ = {
 			isa = PBXGroup;
 			children = (
+				9738280529DDC042005E47DF /* AuthenticationNavigatorView.swift */,
 				CD96A6BC29EED8A60026FBC2 /* AuthenticationRepository.swift */,
 				CD96A6BD29EED8A60026FBC2 /* AuthenticationFirebaseDatasource.swift */,
 				CD96A6BE29EED8A60026FBC2 /* SignInView.swift */,
-				CD96A6BF29EED8A60026FBC2 /* StringExtension.swift */,
 				CD96A6C029EED8A60026FBC2 /* SignUpView.swift */,
+				9738280929DDD26A005E47DF /* ForgotPasswordView.swift */,
 				CD96A6C129EED8A60026FBC2 /* AuthenticationViewModel.swift */,
 			);
 			path = AuthenticationViews;
@@ -377,7 +385,7 @@
 				970F2BB729DF53AD00AD85C6 /* Post.swift in Sources */,
 				97A169B729E70E78004D9B32 /* DetailCardView.swift in Sources */,
 				9780673529CB64F200EFEE52 /* PetSocietyApp.swift in Sources */,
-				9738280829DDD077005E47DF /* EmailVerificationView.swift in Sources */,
+				9738280829DDD077005E47DF /* VerificationMessageView.swift in Sources */,
 				CD96A6C529EED8A60026FBC2 /* StringExtension.swift in Sources */,
 				97D43BA429EF158B00AF0293 /* TabBar.swift in Sources */,
 				CD96A6C729EED8A60026FBC2 /* AuthenticationViewModel.swift in Sources */,

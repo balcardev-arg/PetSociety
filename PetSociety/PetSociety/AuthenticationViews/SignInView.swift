@@ -45,7 +45,7 @@ struct SignInView: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .bold()
                         
-                        TextField("Email", text: $email)
+                        TextField("name@example.com", text: $email)
                             .padding()
                             .frame(width: 350, height: 50)
                             .background(Color.white)
@@ -91,14 +91,10 @@ struct SignInView: View {
                     }
                     HStack {
                         Button("Forgot Password?"){
-                            showForgotPasswordView = true
-                        }.frame(maxWidth: .infinity, alignment: .leading)
-                            .padding()
-                            .sheet(isPresented: $showForgotPasswordView){
-                                ZStack{
-                                    Color.white.ignoresSafeArea()
-                                }
-                            }
+                            navigationStackViews.append(.forgotPassword)
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding()
                         
                         Button("Sign up"){
                             navigationStackViews.append(.signUp)
