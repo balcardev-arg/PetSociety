@@ -17,13 +17,14 @@ struct HomeView: View {
                 ColorExtensionView()
                 List(posts) { post in
                     PostCell(post: post).listRowSeparator(.hidden)
-                }.padding(-20)
+                }
+                .padding(-10)
                 .colorMultiply(Color("backgroundColor"))
                 .scrollContentBackground(.hidden)
-                .listStyle(.grouped)
+                .listStyle(.automatic)
                 .toolbar {
                     ToolbarItem {
-                        Button(action: {}) {
+                        NavigationLink(destination: CreatePostConfirmImageView()) {
                             Image(systemName: "plus.circle.fill").foregroundColor(.black)
                         }
                     }

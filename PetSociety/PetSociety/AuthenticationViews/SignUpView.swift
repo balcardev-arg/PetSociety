@@ -28,8 +28,9 @@ struct SignUpView: View {
         ZStack() {
             ColorExtensionView()
             VStack (alignment: .center){
-                photoPicker.image
+                (photoPicker.image ?? Image(systemName: "photo.circle.fill"))
                     .resizable()
+                    .scaledToFill()
                     .frame(width: 120, height: 120)
                     .clipShape(Circle())
                     .foregroundColor(Color.pink)
