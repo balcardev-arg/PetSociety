@@ -28,8 +28,9 @@ struct SignUpView: View {
         ZStack() {
             ColorExtensionView()
             VStack (alignment: .center){
-                photoPicker.image
+                (photoPicker.image ?? Image(systemName: "photo.circle.fill"))
                     .resizable()
+                    .scaledToFill()
                     .frame(width: 120, height: 120)
                     .clipShape(Circle())
                     .foregroundColor(Color.pink)
@@ -118,7 +119,7 @@ struct SignUpView: View {
                     
                     Button(action: postUser) {
                         Text ("Sign Up")
-                    }.frame(width: 300, height: 40)
+                    }.frame(width: 300, height: 50)
                         .background(validFields ? Color.pink : Color.gray)
                         .foregroundColor(Color.white)
                         .cornerRadius(10)
@@ -143,10 +144,9 @@ struct SignUpView: View {
             }
         }
     }
-    
-    private func uploadImage(for email: String){
+    private func uploadImage(for userId: String){
         let data = photoPicker.imageData
-        WebService().uploadImage(imageData: data) { result in
+        WebService().uploadProfileImage(imageData: data, userId: userId) { result in
             switch result {
             case .success(let imageUrl):
                 updateProfileImage(with: imageUrl)
@@ -156,7 +156,6 @@ struct SignUpView: View {
             }
         }
     }
-    
     private func updateProfileImage(with imageUrl: String){
         WebService().updateProfile(imageUrl: imageUrl) { result in
             isLoading = false

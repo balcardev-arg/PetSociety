@@ -8,22 +8,23 @@
 import SwiftUI
 
 struct TabBar: View {
+    
+    @ObservedObject var authenticationViewModel: AuthenticationViewModel
+    
     var body: some View {
         TabView {
-            Text("Home")
-                .tabItem {
-                    Image(systemName: "house")
-                    Text("Home")
-                }
-            Text("Messager")
+            HomeView().tabItem {
+                Image(systemName: "house")
+                Text("Home")
+            }
+            Text("Messages")
                 .tabItem {
                     Image(systemName: "message.fill")
                     Text("Message")
-                    
                 }
             Text("Toilet")
                 .tabItem {
-                    Image(systemName: "toilet.fill")
+                    Image(systemName: "shuffle")
                     Text("Toilet")
                 }
             Text("Notification")
@@ -33,15 +34,21 @@ struct TabBar: View {
                 }
             Text("Perfil")
                 .tabItem {
-                    Image(systemName: "person.circle.fill")
+                    
+                    if let user = AutheticationFirebaseDatasource().getCurrentUser() {
+                        AsyncImage(url: URL(string: user.imageUrl))
+                    } else {
+                        Image(systemName: "person.circle.fill")
+                    }
                     Text("Perfil")
                 }
         }
     }
 }
 
-public struct TabBar_Previews: PreviewProvider {
-    public static var previews: some View {
-        TabBar()
+struct TabBar_Previews: PreviewProvider {
+    
+    static var previews: some View {
+        TabBar(authenticationViewModel: AuthenticationViewModel())
     }
 }

@@ -1,5 +1,5 @@
 //
-//  EmailVerificationView.swift
+//  VerificationMessageView.swift
 //  PetSociety
 //
 //  Created by Layla Cisneros on 05/04/2023.
@@ -7,14 +7,16 @@
 
 import SwiftUI
 
-struct EmailVerificationView: View {
+struct VerificationMessageView: View {
     @Binding var navigationStackViews: [LoginNavigationViews]
+    @State var message: String
+    
     
     var body: some View {
         ZStack {
             ColorExtensionView()
             VStack {
-                Text("Please check your email for verification")
+                Text(message)
                     .bold()
                     .font(.system(size: 40))
                     .padding(20)
@@ -36,6 +38,6 @@ struct EmailVerificationView: View {
 struct EmailVerificationView_Previews: PreviewProvider {
     @State static var fakeStack: [LoginNavigationViews] = [.signUp, .emailVerification]
     static var previews: some View {
-        EmailVerificationView(navigationStackViews: $fakeStack )
+        VerificationMessageView(navigationStackViews: $fakeStack, message: "Please check your email for verification")
     }
 }
