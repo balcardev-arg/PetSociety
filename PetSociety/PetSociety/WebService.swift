@@ -59,7 +59,15 @@ class WebService {
         }.resume()
     }
     
-    func uploadImage(imageData: Data, completion: @escaping (Result<String, Error>) -> Void ) {
+    func uploadProfileImage(imageData: Data, userId: String, completion: @escaping (Result<String, Error>) -> Void ) {
+        uploadImage(imageData: imageData, path: "\(userId)/profilePicture.jpg", completion: completion)
+    }
+    
+    func uploadPostImage(imageData: Data, userId: String, completion: @escaping (Result<String, Error>) -> Void ) {
+        uploadImage(imageData: imageData, path: "\(userId)/\(Date())", completion: completion)
+    }
+    
+    private func uploadImage(imageData: Data, path: String, completion: @escaping (Result<String, Error>) -> Void ) {
         // Creo una referencia a storage
         let storageReference = Storage.storage().reference()
         
@@ -67,7 +75,7 @@ class WebService {
         let data = imageData
         
         // a mi referencia de la imagen le digo en donde guardarse
-        let imageReference = storageReference.child("email/profilePicture.jpg")
+        let imageReference = storageReference.child(path)
         
         // le aplico putData para que me traiga metadata y error
         imageReference.putData(data) { metadata, error in
@@ -89,7 +97,7 @@ class WebService {
         // En los errores, si no se pudo crear la imagen o si no se obtuvo la url, el usuario igualmente se puede loguear
     }
     
-    func getPosts(completion: @escaping (Result<[Post], Error>) -> Void) {
+    func getPosts(completion: @escaping (Result < [Post], Error >) -> Void) {
         guard let url = URL(string: "getPosts") else { return }
         
         var request = URLRequest(url: url)
@@ -104,6 +112,25 @@ class WebService {
                 completion(.failure(error))
             } else {
                 completion(.success(userPosts))
+            }
+        }.resume()
+    }
+    
+    func getPost(with id: String, completion: @escaping (Result <Post, Error>) -> Void) {
+        guard let url = URL(string: "getPostId") else { return }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            guard let data = data,
+                  let post = try? JSONDecoder().decode(Post.self, from: data) else { return }
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(post))
             }
         }.resume()
     }

@@ -20,7 +20,7 @@ struct PetSocietyApp: App {
     
     var body: some Scene {
         WindowGroup {
-            CreatePostConfirmImageView()
+            NotificationsView()
             //AuthenticationNavigatorView()
 //            if authenticationViewModel.user != nil {
 //                TabBar(authenticationViewModel: authenticationViewModel)

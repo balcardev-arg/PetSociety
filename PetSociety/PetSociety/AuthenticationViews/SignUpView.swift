@@ -144,10 +144,9 @@ struct SignUpView: View {
             }
         }
     }
-    
-    private func uploadImage(for email: String){
+    private func uploadImage(for userId: String){
         let data = photoPicker.imageData
-        WebService().uploadImage(imageData: data) { result in
+        WebService().uploadProfileImage(imageData: data, userId: userId) { result in
             switch result {
             case .success(let imageUrl):
                 updateProfileImage(with: imageUrl)
@@ -157,7 +156,6 @@ struct SignUpView: View {
             }
         }
     }
-    
     private func updateProfileImage(with imageUrl: String){
         WebService().updateProfile(imageUrl: imageUrl) { result in
             isLoading = false
