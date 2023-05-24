@@ -134,4 +134,23 @@ class WebService {
             }
         }.resume()
     }
+    
+    func followFriend(follow: Bool, friendId: String, completion: @escaping (Result <Void, Error>) -> Void) {
+        guard let url = URL(string: "followFriend") else { return }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
+        
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(()))
+            }
+            
+        }
+    }
 }

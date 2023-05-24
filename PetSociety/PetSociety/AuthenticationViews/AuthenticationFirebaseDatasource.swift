@@ -14,7 +14,7 @@ final class AutheticationFirebaseDatasource {
         guard let user = Auth.auth().currentUser else {
             return nil
         }
-        return User(name: user.displayName ?? "", email: user.uid, imageUrl: user.photoURL?.absoluteString ?? "")
+        return User(name: user.displayName ?? "", email: user.uid, imageUrl: user.photoURL?.absoluteString ?? "", friends: [], isFriend: false)
     }
     func createNewUser(email: String, password: String, completionBlock: @escaping (Result<User,Error>)-> Void) {
         Auth.auth().createUser(withEmail: email, password: password) { AuthDataResult, error in
@@ -27,7 +27,7 @@ final class AutheticationFirebaseDatasource {
                 return
             }
 
-            completionBlock(.success(User(name: user.displayName ?? "", email: user.uid, imageUrl: user.photoURL?.absoluteString ?? "")))
+            completionBlock(.success(User(name: user.displayName ?? "", email: user.uid, imageUrl: user.photoURL?.absoluteString ?? "", friends: [], isFriend: false)))
         
         }
     }
@@ -42,7 +42,7 @@ final class AutheticationFirebaseDatasource {
                 return
             }
 
-            completionBlock(.success(User(name: user.displayName ?? "", email: user.uid, imageUrl: user.photoURL?.absoluteString ?? "")))
+            completionBlock(.success(User(name: user.displayName ?? "", email: user.uid, imageUrl: user.photoURL?.absoluteString ?? "", friends: [], isFriend: false)))
         
         }
     }

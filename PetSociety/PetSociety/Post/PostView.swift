@@ -23,11 +23,11 @@ struct PostView: View {
                                         .resizable()
                                         .scaledToFill()
                                         .clipShape(Circle())
-                                        .frame(width: 50, height: 50)
+                                        .frame(width: 80, height: 80)
                                         .clipShape(Circle())
                                         .overlay(Circle().stroke(Color(.gray), lineWidth: 1))
                                 } else {
-                                    ProgressView().frame(width: 50, height: 50)
+                                    ProgressView().scaleEffect(4)
                                 }
                             }.padding()
                             

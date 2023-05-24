@@ -43,7 +43,7 @@ struct PostCell: View {
                             } else {
                                 ProgressView()
                                     .scaleEffect(3)
-                                    .frame(width: .infinity, height: 350)
+                                    .frame(height: 350)
                             }
                         }
                     }

@@ -36,6 +36,8 @@
 		978138E029FC2BA30079EDF0 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978138DF29FC2BA30079EDF0 /* Notification.swift */; };
 		978F46EA29D1DD1A0012B1F3 /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978F46E929D1DD1A0012B1F3 /* PhotoPicker.swift */; };
 		979C40092A13E9A8007F2144 /* NotificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 979C40082A13E9A8007F2144 /* NotificationCell.swift */; };
+		97A04BF22A1BA2F3005638B3 /* FriendCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A04BF12A1BA2F3005638B3 /* FriendCellView.swift */; };
+		97A04BF62A1BAAE4005638B3 /* FriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A04BF52A1BAAE3005638B3 /* FriendsView.swift */; };
 		97D43BA429EF158B00AF0293 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97D43BA329EF158A00AF0293 /* TabBar.swift */; };
 		97F0725229F8489500699157 /* CreatePostConfirmImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97F0725129F8489500699157 /* CreatePostConfirmImageView.swift */; };
 		97FA7FEE2A169EF50054CD88 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FA7FED2A169EF50054CD88 /* ProfileView.swift */; };
@@ -95,6 +97,8 @@
 		978138DF29FC2BA30079EDF0 /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		978F46E929D1DD1A0012B1F3 /* PhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
 		979C40082A13E9A8007F2144 /* NotificationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCell.swift; sourceTree = "<group>"; };
+		97A04BF12A1BA2F3005638B3 /* FriendCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendCellView.swift; sourceTree = "<group>"; };
+		97A04BF52A1BAAE3005638B3 /* FriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsView.swift; sourceTree = "<group>"; };
 		97D43BA329EF158A00AF0293 /* TabBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		97F0725129F8489500699157 /* CreatePostConfirmImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostConfirmImageView.swift; sourceTree = "<group>"; };
 		97FA7FED2A169EF50054CD88 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
@@ -162,6 +166,8 @@
 				9780673429CB64F200EFEE52 /* PetSocietyApp.swift */,
 				9710878729D4C4C900994BA3 /* HomeView.swift */,
 				97FA7FED2A169EF50054CD88 /* ProfileView.swift */,
+				97A04BF12A1BA2F3005638B3 /* FriendCellView.swift */,
+				97A04BF52A1BAAE3005638B3 /* FriendsView.swift */,
 				97FA7FEC2A166D370054CD88 /* Notifications */,
 				978138DE29FC2B2C0079EDF0 /* Post */,
 				9780AB1E29F1C136003D0EC9 /* Extension */,
@@ -399,6 +405,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				97A04BF22A1BA2F3005638B3 /* FriendCellView.swift in Sources */,
 				9707728629E83FCB0061900F /* CommentView.swift in Sources */,
 				9752A90129D600FA002DC6FF /* ColorExtensionView.swift in Sources */,
 				9746BFE329DC8878004EEB3F /* UIColor+Extension.swift in Sources */,
@@ -416,6 +423,7 @@
 				9707728829E84CC30061900F /* PostView.swift in Sources */,
 				978F46EA29D1DD1A0012B1F3 /* PhotoPicker.swift in Sources */,
 				9710878629D4A5A700994BA3 /* ModalProgressView.swift in Sources */,
+				97A04BF62A1BAAE4005638B3 /* FriendsView.swift in Sources */,
 				970F2BB729DF53AD00AD85C6 /* Post.swift in Sources */,
 				9780673529CB64F200EFEE52 /* PetSocietyApp.swift in Sources */,
 				9738280829DDD077005E47DF /* VerificationMessageView.swift in Sources */,

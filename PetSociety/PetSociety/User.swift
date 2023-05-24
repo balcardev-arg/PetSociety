@@ -16,4 +16,6 @@ struct User: Codable, Identifiable {
     let name: String
     let email: String
     let imageUrl: String
+    var friends: [User] = []
+    var isFriend: Bool
 }
