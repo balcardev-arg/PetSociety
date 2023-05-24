@@ -11,7 +11,7 @@ import SwiftUI
 
 
 final class PhotoPicker: ObservableObject {
-    @Published var image: Image = Image(systemName: "person.circle")
+    @Published var image: Image? = nil
     @Published var photoSelection: PhotosPickerItem? {
     didSet {
         if let photoSelection {
